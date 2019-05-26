@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.movie.dao.ProgramacaoDAO;
 import com.movie.model.Filme;
 import com.movie.model.Programacao;
 import com.movie.model.Sala;

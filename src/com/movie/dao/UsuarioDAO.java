@@ -1,4 +1,4 @@
-package com.movie.control;
+package com.movie.dao;
 
 public class UsuarioDAO {
 	

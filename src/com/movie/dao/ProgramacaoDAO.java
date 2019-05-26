@@ -1,4 +1,4 @@
-package com.movie.control;
+package com.movie.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
