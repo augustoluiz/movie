@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.movie.model.Filme;
+import com.movie.model.Programacao;
 import com.movie.model.Sala;
 
 public class ControladoraTeste {
@@ -53,19 +54,19 @@ public class ControladoraTeste {
 //				System.out.println(f.getNome());
 //			}
 			
-			Sala sala = new Sala();
-			
-			sala.setNome("Sala 2");
-			
-			SalaDAO salaDAO = new SalaDAO();
-			
-			if(salaDAO.insereSala(sala)) {
-				System.out.println("Sala inserida com sucesso");
-			} else {
-				System.out.println("erro ao inserir");
-			}
-			
-			SalaDAO salaDAO1 = new SalaDAO();
+//			Sala sala = new Sala();
+//			
+//			sala.setNome("Sala 2");
+//			
+//			SalaDAO salaDAO = new SalaDAO();
+//			
+//			if(salaDAO.insereSala(sala)) {
+//				System.out.println("Sala inserida com sucesso");
+//			} else {
+//				System.out.println("erro ao inserir");
+//			}
+//			
+//			SalaDAO salaDAO1 = new SalaDAO();
 			
 //			if(salaDAO1.removeSala(1)) {
 //				System.out.println("Sala excluída");
@@ -73,12 +74,51 @@ public class ControladoraTeste {
 //				System.out.println("Erro ao excluir a sala");
 //			}
 			
-			List<Sala> salas = new ArrayList<>();
-			salas = salaDAO1.consultaSalas();
+//			List<Sala> salas = new ArrayList<>();
+//			salas = salaDAO1.consultaSalas();
+//			
+//			for(Sala s: salas) {
+//				System.out.println(s.getNome());
+//			}
+		
+			Programacao prog = new Programacao();
 			
-			for(Sala s: salas) {
-				System.out.println(s.getNome());
+			prog.setId_filme(1);
+			prog.setId_sala(2);
+			prog.setAudio("DUB");
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			prog.setExibicao(sdf.parse("2019-05-26 18:42"));
+			
+			prog.setPreco(23.50);
+			prog.setQualidade("3D");
+			
+			ProgramacaoDAO progDAO = new ProgramacaoDAO();
+			
+			if(progDAO.insereProgramacao(prog)) {
+				System.out.println("Programação Inserida com sucesso");
+			} else {
+				System.out.println("Erro ao inserir programação");
 			}
+			
+			ProgramacaoDAO progDAO1 = new ProgramacaoDAO();
+			
+//			if(progDAO1.removeProgramacao(1)) {
+//				System.out.println("Programação removida com sucesso");
+//			} else {
+//				System.out.println("Erro ao remover programação");
+//			}
+			
+			List<Programacao> programacoes = new ArrayList<>();
+			
+//			programacoes = progDAO1.consultaProgramacoes(1);
+			
+			List<String> qualidade = new ArrayList<>();
+			qualidade = progDAO1.consultaAudioPorFilme(1, sdf.parse("2019-05-26 16:45"));
+			for(String q: qualidade) {
+				System.out.println(q);
+			}
+			
 	}
 	
 }

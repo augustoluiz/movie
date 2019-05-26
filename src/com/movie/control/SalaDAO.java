@@ -19,6 +19,7 @@ public class SalaDAO {
 		
 	}
 	
+	/*Insere a Sala no Banco de Dados*/
 	public boolean insereSala(Sala sala) {
 		em.getTransaction().begin();
 		try {
@@ -34,6 +35,7 @@ public class SalaDAO {
 		}
 	}
 	
+	/*Remove a Sala do Banco de Dados*/
 	public boolean removeSala(long id) {
 		try {
 			Sala s = em.find(Sala.class, id);
@@ -50,6 +52,7 @@ public class SalaDAO {
 		}
 	}
 	
+	/*Lista todas as salas*/
 	public List<Sala> consultaSalas(){
 		List<Sala> salas = new ArrayList<>();
 		

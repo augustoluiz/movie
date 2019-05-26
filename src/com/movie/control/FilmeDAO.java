@@ -20,6 +20,7 @@ public class FilmeDAO {
 		
 	}
 	
+	/*Insere o Filme no Banco de Dados*/
 	public boolean insereFilme(Filme filme) {
 		em.getTransaction().begin();
 		try {
@@ -35,6 +36,7 @@ public class FilmeDAO {
 		}
 	}
 	
+	/*Remove o Filme do Banco de Dados*/
 	public boolean removeFilme(long id) {
 		try {
 			Filme f = em.find(Filme.class, id);
@@ -51,6 +53,7 @@ public class FilmeDAO {
 		}
 	}
 	
+	/*Lista todos os filmes pelo nome*/
 	public List<Filme> consultaFilmes(String nome){	
 		List<Filme> filmes = new ArrayList<>();
 		
@@ -65,6 +68,7 @@ public class FilmeDAO {
 		return filmes;
 	}
 	
+	/*Lista todos os filmes em cartaz(que tenha a data de estreia menor que a data atual)*/
 	public List<Filme> listaFilmesEmCartaz(Date data_atual){
 		List<Filme> filmes = new ArrayList<>();
 		
@@ -79,6 +83,7 @@ public class FilmeDAO {
 		return filmes;
 	}
 	
+	/*Lista todos os filmes que serão lançados(que tenha a data de estreia maior que a data atual)*/
 	public List<Filme> listaFilmesEmBreve(Date data_atual){
 		List<Filme> filmes = new ArrayList<>();
 		
