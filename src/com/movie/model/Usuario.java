@@ -1,17 +1,15 @@
 package com.movie.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
 	
-	private long id;
+	@Id
 	private String login;
 	private String senha;
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public String getLogin() {
 		return login;
 	}
