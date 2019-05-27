@@ -53,6 +53,22 @@ public class ProgramacaoDAO {
 		}
 	}
 	
+	/*Altera a Programação no Banco de Dados*/
+	public boolean alteraProgramacao(Programacao programacao) {
+		em.getTransaction().begin();
+		try {
+			em.merge(programacao);
+			em.getTransaction().commit();
+			em.close();
+			emf.close();
+			return true;
+		} catch (Exception e) {
+			em.close();
+			emf.close();
+			return false;
+		}
+	}
+	
 	/*Retorna uma lista de programações por filme*/
 	public List<Programacao> consultaProgramacoes(long id_filme){
 		List<Programacao> programacoes = new ArrayList<>();

@@ -32,6 +32,7 @@ public class FilmeDAO {
 		} catch (Exception e) {
 			em.close();
 			emf.close();
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -42,6 +43,22 @@ public class FilmeDAO {
 			Filme f = em.find(Filme.class, id);
 			em.getTransaction().begin();
 			em.remove(f);
+			em.getTransaction().commit();
+			em.close();
+			emf.close();
+			return true;
+		} catch (Exception e) {
+			em.close();
+			emf.close();
+			return false;
+		}
+	}
+	
+	/*Altera o Filme no Banco de Dados*/
+	public boolean alteraFilme(Filme filme) {
+		em.getTransaction().begin();
+		try {
+			em.merge(filme);
 			em.getTransaction().commit();
 			em.close();
 			emf.close();

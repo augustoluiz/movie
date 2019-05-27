@@ -52,6 +52,22 @@ public class SalaDAO {
 		}
 	}
 	
+	/*Altera Sala no Banco de Dados*/
+	public boolean alteraSala(Sala sala) {
+		em.getTransaction().begin();
+		try {
+			em.merge(sala);
+			em.getTransaction().commit();
+			em.close();
+			emf.close();
+			return true;
+		} catch (Exception e) {
+			em.close();
+			emf.close();
+			return false;
+		}
+	}
+	
 	/*Lista todas as salas*/
 	public List<Sala> consultaSalas(){
 		List<Sala> salas = new ArrayList<>();
