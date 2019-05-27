@@ -3,6 +3,7 @@ package com.movie.control;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.movie.dao.ProgramacaoDAO;
@@ -121,14 +122,20 @@ public class ControladoraTeste {
 //				System.out.println(q);
 //			}
 		
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
+//			UsuarioDAO usuarioDAO = new UsuarioDAO();
+//			
+//			if(usuarioDAO.confereUsuario("Root", "root")) {
+//				System.out.println("Usuário Cadastrado");
+//			} else {
+//				System.out.println("Usuário não cadastrado");
+//			}
 			
-			if(usuarioDAO.confereUsuario("Root", "root")) {
-				System.out.println("Usuário Cadastrado");
-			} else {
-				System.out.println("Usuário não cadastrado");
-			}
-			
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date data_atual = new Date();
+		String data_str = sdf1.format(data_atual);
+		System.out.println(data_atual);
+		System.out.println(data_str);
+		
 	}
 	
 }
