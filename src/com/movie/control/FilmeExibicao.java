@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
+import com.movie.dao.ProgramacaoDAO;
 import com.movie.model.Filme;
 
 @Controller
 public class FilmeExibicao {
 	
-	private FilmeDAO filmeDao;
 	private FormataData formataData = new FormataData();
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
@@ -27,9 +27,14 @@ public class FilmeExibicao {
 		List<Filme> filmes = new ArrayList<>();
 		Date data_atual = new Date();
 		
-		filmeDao = new FilmeDAO();
 		
-		filmes = filmeDao.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+		filmes = new FilmeDAO().listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+		
+		for (Filme f : filmes) {
+			f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+			f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));	
+		}
+		
 		ModelAndView mv = new ModelAndView("filme", "filmes", filmes);
 		
 		return mv;

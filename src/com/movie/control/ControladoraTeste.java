@@ -3,7 +3,9 @@ package com.movie.control;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
+import com.movie.model.Filme;
 import com.movie.model.Programacao;
 
 public class ControladoraTeste {
@@ -79,14 +81,14 @@ public class ControladoraTeste {
 //			}
 		
 //			Programacao prog = new Programacao();
-//			
+			
 //			prog.setId(1);
 //			prog.setId_filme(1);
 //			prog.setId_sala(1);
 //			prog.setAudio("LEG");
 //			
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//			prog.setExibicao(sdf.parse("2019-05-26 23:12"));
+//			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//			prog.setExibicao(sdf2.parse("2019-07-26 23:12"));
 //			
 //			prog.setPreco(23.50);
 //			prog.setQualidade("2D");
