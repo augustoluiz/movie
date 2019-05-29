@@ -1,11 +1,13 @@
 package com.movie.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Filme {
@@ -25,6 +27,11 @@ public class Filme {
 	private String classifIndicativa;
 	private String distribuidora;
 	
+	@Transient
+	private List<String> qualidade;
+	
+	@Transient
+	private List<String> audio;
 	
 	public long getId() {
 		return id;
@@ -97,6 +104,19 @@ public class Filme {
 	}
 	public void setDistribuidora(String distribuidora) {
 		this.distribuidora = distribuidora;
+	}
+	
+	public List<String> getQualidade() {
+		return qualidade;
+	}
+	public void setQualidade(List<String> qualidade) {
+		this.qualidade = qualidade;
+	}
+	public List<String> getAudio() {
+		return audio;
+	}
+	public void setAudio(List<String> audio) {
+		this.audio = audio;
 	}
 
 }
