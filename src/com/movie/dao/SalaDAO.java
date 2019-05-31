@@ -4,81 +4,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.movie.dao.connection.ConnectionBuilderORM;
+import com.movie.dao.exception.DAOException;
+import com.movie.dao.interfaces.ISalaDAO;
 import com.movie.model.Sala;
 
-public class SalaDAO {
+public class SalaDAO implements ISalaDAO{
 	
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-movie");
 	private EntityManager em = emf.createEntityManager();
 	
-	public SalaDAO() {
-		
-	}
-	
 	/*Insere a Sala no Banco de Dados*/
-	public boolean insereSala(Sala sala) {
+	@Override
+	void insereSala(Sala sala) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
-		try {
-			em.persist(sala);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+		em.persist(sala);
+		em.getTransaction().commit();
+		em.close();
 	}
-	
+
 	/*Remove a Sala do Banco de Dados*/
-	public boolean removeSala(long id) {
-		try {
-			Sala s = em.find(Sala.class, id);
-			em.getTransaction().begin();
-			em.remove(s);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+	@Override
+	void boolean removeSala(long id) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		Sala sala = em.find(Sala.class, id);
+		em.getTransaction().begin();
+		em.remove(sala);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
 	/*Altera Sala no Banco de Dados*/
-	public boolean alteraSala(Sala sala) {
+	@Override
+	void boolean alteraSala(Sala sala) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
-		try {
-			em.merge(sala);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+		em.merge(sala);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
 	/*Lista todas as salas*/
-	public List<Sala> consultaSalas(){
+	@Override
+	List<Sala> consultaSalas() throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Sala> salas = new ArrayList<>();
 		
 		em.getTransaction().begin();
 		TypedQuery<Sala> query = em.createQuery("SELECT s FROM Sala s ", Sala.class);
 		salas = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return salas;
 	}
+	
 }
