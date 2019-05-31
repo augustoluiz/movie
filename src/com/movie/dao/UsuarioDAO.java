@@ -8,10 +8,10 @@ import javax.persistence.TypedQuery;
 
 import com.movie.dao.connection.ConnectionBuilderORM;
 import com.movie.dao.exception.DAOException;
-import com.movie.dao.interfaces.ISalaDAO;
+import com.movie.dao.interfaces.IUsuarioDAO;
 import com.movie.model.Usuario;
 
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO{
 	
 	/*Verifica se a senha e login est�o cadastradas*/
 	@Override
