@@ -5,112 +5,90 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.movie.dao.connection.ConnectionBuilderORM;
+import com.movie.dao.exception.DAOException;
+import com.movie.dao.interfaces.IFilmeDAO;
 import com.movie.model.Filme;
 
-public class FilmeDAO {
-	
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-movie");
-	private EntityManager em = emf.createEntityManager();
-	
-	public FilmeDAO() {
-		
-	}
+public class FilmeDAO implements IFilmeDAO{
 	
 	/*Insere o Filme no Banco de Dados*/
-	public boolean insereFilme(Filme filme) {
+	@Override
+	public void insereFilme(Filme filme) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
-		try {
-			em.persist(filme);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			e.printStackTrace();
-			return false;
-		}
+		em.persist(filme);
+		em.getTransaction().commit();
+		em.close();
 	}
-	
+
 	/*Remove o Filme do Banco de Dados*/
-	public boolean removeFilme(long id) {
-		try {
-			Filme f = em.find(Filme.class, id);
-			em.getTransaction().begin();
-			em.remove(f);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
-	}
-	
-	/*Altera o Filme no Banco de Dados*/
-	public boolean alteraFilme(Filme filme) {
+	@Override
+	public void removeFilme(long id) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		Filme filme = em.find(Filme.class, id);
 		em.getTransaction().begin();
-		try {
-			em.merge(filme);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+		em.remove(filme);
+		em.getTransaction().commit();
+		em.close();
 	}
-	
+
+	/*Altera o Filme no Banco de Dados*/
+	@Override
+	public void alteraFilme(Filme filme) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		em.getTransaction().begin();
+		em.merge(filme);
+		em.getTransaction().commit();
+		em.close();
+	}
+
 	/*Lista todos os filmes pelo nome*/
-	public List<Filme> consultaFilmes(String nome){	
+	@Override
+	public List<Filme> consultaFilmes(String nome) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Filme> filmes = new ArrayList<>();
 		
 		em.getTransaction().begin();
-		TypedQuery<Filme> query = em.createQuery("SELECT f FROM Filme f where nome like :nome ", Filme.class);
+		TypedQuery<Filme> query = em.createQuery(
+				"SELECT f FROM Filme f where nome like :nome ", Filme.class);
 		query.setParameter("nome","%" +nome+"%");
 		filmes = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return filmes;
+		
 	}
-	
+
 	/*Lista todos os filmes em cartaz(que tenha a data de estreia menor que a data atual)*/
-	public List<Filme> listaFilmesEmCartaz(Date data_atual){
+	@Override
+	public List<Filme> listaFilmesEmCartaz(Date data_atual) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Filme> filmes = new ArrayList<>();
 		
 		em.getTransaction().begin();
 		TypedQuery<Filme> query = em.createQuery("SELECT f FROM Filme f where estreia <= :data_atual", Filme.class);
 		query.setParameter("data_atual",data_atual);
 		filmes = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return filmes;
 	}
-	
+
 	/*Lista todos os filmes que serão lançados(que tenha a data de estreia maior que a data atual)*/
-	public List<Filme> listaFilmesEmBreve(Date data_atual){
+	@Override
+	public List<Filme> listaFilmesEmBreve(Date data_atual) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		
 		List<Filme> filmes = new ArrayList<>();
 		
 		em.getTransaction().begin();
 		TypedQuery<Filme> query = em.createQuery("SELECT f FROM Filme f where estreia > :data_atual", Filme.class);
 		query.setParameter("data_atual",data_atual);
 		filmes = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return filmes;
 	}

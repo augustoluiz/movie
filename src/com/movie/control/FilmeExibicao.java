@@ -1,10 +1,7 @@
 package com.movie.control;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
+import com.movie.dao.exception.DAOException;
 import com.movie.model.Filme;
 
 @Controller
 public class FilmeExibicao {
 	
+	private FilmeDAO filmeDAO;
 	private FormataData formataData = new FormataData();
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
@@ -27,8 +26,13 @@ public class FilmeExibicao {
 		List<Filme> filmes = new ArrayList<>();
 		Date data_atual = new Date();
 		
+		filmeDAO = new FilmeDAO();
 		
-		filmes = new FilmeDAO().listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+		try {
+			filmes = filmeDAO.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 		
 		for (Filme f : filmes) {
 			f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
