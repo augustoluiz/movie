@@ -4,23 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.movie.dao.connection.ConnectionBuilderORM;
+import com.movie.dao.exception.DAOException;
+import com.movie.dao.interfaces.ISalaDAO;
 import com.movie.model.Usuario;
 
 public class UsuarioDAO {
 	
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-movie");
-	private EntityManager em = emf.createEntityManager();
-	
-	public UsuarioDAO() {
-		
-	}
-	
-	/*Verifica se a senha e login estão cadastradas*/
-	public boolean confereUsuario(String login, String senha) {
+	/*Verifica se a senha e login estï¿½o cadastradas*/
+	@Override
+	public void confereUsuario(String login, String senha) {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Usuario> usuario = new ArrayList<>();
 		
 		em.getTransaction().begin();
@@ -28,15 +24,8 @@ public class UsuarioDAO {
 		query.setParameter("login",login.toUpperCase());
 		query.setParameter("senha",senha.toUpperCase());
 		usuario = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
-		
-		if(usuario.isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
+
 	}
 	
 }
