@@ -5,88 +5,65 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.movie.dao.connection.ConnectionBuilderORM;
+import com.movie.dao.exception.DAOException;
+import com.movie.dao.interfaces.IProgramacaoDAO;
 import com.movie.model.Programacao;
 
-public class ProgramacaoDAO {
+public class ProgramacaoDAO implements IProgramacaoDAO{
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-movie");
-	private EntityManager em = emf.createEntityManager();
-	
-	public ProgramacaoDAO(){
-		
-	}
-	
-	/*Insere a programação no Banco de Dados*/
-	public boolean insereProgramacao(Programacao programacao) {
+	/*Insere a programaï¿½ï¿½o no Banco de Dados*/
+	@Override
+	public void insereProgramacao(Programacao programacao) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
-		try {
-			em.persist(programacao);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+		em.persist(programacao);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
-	/*Remove a programação do Banco de Dados*/
-	public boolean removeProgramacao(long id) {
-		try {
-			Programacao p = em.find(Programacao.class, id);
-			em.getTransaction().begin();
-			em.remove(p);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
-	}
-	
-	/*Altera a Programação no Banco de Dados*/
-	public boolean alteraProgramacao(Programacao programacao) {
+	/*Remove a programaï¿½ï¿½o do Banco de Dados*/
+	@Override
+	public void removeProgramacao(long id) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		Programacao programacao = em.find(Programacai.class, id);
 		em.getTransaction().begin();
-		try {
-			em.merge(programacao);
-			em.getTransaction().commit();
-			em.close();
-			emf.close();
-			return true;
-		} catch (Exception e) {
-			em.close();
-			emf.close();
-			return false;
-		}
+		em.remove(programacao);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
-	/*Retorna uma lista de programações por filme*/
-	public List<Programacao> consultaProgramacoes(long id_filme){
+	/*Altera a Programaï¿½ï¿½o no Banco de Dados*/
+	@Override
+	public void alteraProgramacao(Programacao programacao) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		em.getTransaction().begin();
+		em.merge(programacao);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	/*Retorna uma lista de programaï¿½ï¿½es por filme*/
+	@Override
+	public List<Programacao> consultaProgramacoes(long id_filme) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Programacao> programacoes = new ArrayList<>();
 				
 		em.getTransaction().begin();
 		TypedQuery<Programacao> query = em.createQuery("SELECT p FROM Programacao p where id_filme like :id_filme ", Programacao.class);
 		query.setParameter("id_filme",id_filme);
 		programacoes = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return programacoes;
-		
 	}
 	
-	/*Busca em todas as programações(após a data atual) do filme em questão, a qualidade (2D ou 3D)*/
-	public List<String> consultaQualidadePorFilme(long id_filme, Date data_atual){		
+	/*Busca em todas as programaï¿½ï¿½es(apï¿½s a data atual) do filme em questï¿½o, a qualidade (2D ou 3D)*/
+	@Override
+	public List<String> consultaQualidadePorFilme(long id_filme, Date data_atual) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<String> qualidade = new ArrayList<>();
 		
 		em.getTransaction().begin();
@@ -94,15 +71,15 @@ public class ProgramacaoDAO {
 		query.setParameter("id_filme",id_filme);
 		query.setParameter("data_atual",data_atual);
 		qualidade = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return qualidade;
 	}
 	
-	/*Busca em todas as programações(após a data atual) do filme em questão, o audio (LEG ou DUB)*/
-	public List<String> consultaAudioPorFilme(long id_filme, Date data_atual){
+	/*Busca em todas as programaï¿½ï¿½es(apï¿½s a data atual) do filme em questï¿½o, o audio (LEG ou DUB)*/
+	@Override
+	public List<String> consultaAudioPorFilme(long id_filme, Date data_atual) throws DAOException{
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<String> audio = new ArrayList<>();
 		
 		em.getTransaction().begin();
@@ -110,10 +87,9 @@ public class ProgramacaoDAO {
 		query.setParameter("id_filme",id_filme);
 		query.setParameter("data_atual",data_atual);
 		audio = query.getResultList();
-		em.getTransaction().commit();
 		em.close();
-		emf.close();
 		
 		return audio;
 	}
+	
 }
