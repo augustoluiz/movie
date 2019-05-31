@@ -1,0 +1,47 @@
+package com.movie.control;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.movie.dao.FilmeDAO;
+import com.movie.dao.ProgramacaoDAO;
+import com.movie.dao.exception.DAOException;
+import com.movie.model.Filme;
+
+@Controller
+public class FilmeExibicao {
+	
+	private FilmeDAO filmeDAO;
+	private FormataData formataData = new FormataData();
+	
+	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
+	@RequestMapping("/filmes-em-exibicao")
+	public ModelAndView Filme() throws ParseException {
+		List<Filme> filmes = new ArrayList<>();
+		Date data_atual = new Date();
+		
+		filmeDAO = new FilmeDAO();
+		
+		try {
+			filmes = filmeDAO.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		
+		for (Filme f : filmes) {
+			f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+			f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));	
+		}
+		
+		ModelAndView mv = new ModelAndView("filme", "filmes", filmes);
+		
+		return mv;
+	}
+			
+}
