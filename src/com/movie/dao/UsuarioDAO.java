@@ -7,13 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import com.movie.dao.connection.ConnectionBuilderORM;
-import com.movie.dao.exception.DAOException;
 import com.movie.dao.interfaces.IUsuarioDAO;
 import com.movie.model.Usuario;
 
 public class UsuarioDAO implements IUsuarioDAO{
 	
-	/*Verifica se a senha e login est�o cadastradas*/
+	/*Verifica se a senha e login estao cadastradas*/
 	@Override
 	public void confereUsuario(String login, String senha) {
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();

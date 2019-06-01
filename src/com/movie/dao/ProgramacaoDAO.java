@@ -14,7 +14,7 @@ import com.movie.model.Programacao;
 
 public class ProgramacaoDAO implements IProgramacaoDAO{
 
-	/*Insere a programa��o no Banco de Dados*/
+	/*Insere a programacao no Banco de Dados*/
 	@Override
 	public void insereProgramacao(Programacao programacao) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
@@ -24,18 +24,18 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		em.close();
 	}
 	
-	/*Remove a programa��o do Banco de Dados*/
+	/*Remove a programacao do Banco de Dados*/
 	@Override
 	public void removeProgramacao(long id) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
-		Programacao programacao = em.find(Programacai.class, id);
+		Programacao programacao = em.find(Programacao.class, id);
 		em.getTransaction().begin();
 		em.remove(programacao);
 		em.getTransaction().commit();
 		em.close();
 	}
 	
-	/*Altera a Programa��o no Banco de Dados*/
+	/*Altera a Programacao no Banco de Dados*/
 	@Override
 	public void alteraProgramacao(Programacao programacao) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
@@ -45,7 +45,7 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		em.close();
 	}
 	
-	/*Retorna uma lista de programa��es por filme*/
+	/*Retorna uma lista de programacoes por filme*/
 	@Override
 	public List<Programacao> consultaProgramacoes(long id_filme) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
@@ -60,7 +60,7 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		return programacoes;
 	}
 	
-	/*Busca em todas as programa��es(ap�s a data atual) do filme em quest�o, a qualidade (2D ou 3D)*/
+	/*Busca em todas as programacoes(apos a data atual) do filme em questao, a qualidade (2D ou 3D)*/
 	@Override
 	public List<String> consultaQualidadePorFilme(long id_filme, Date data_atual) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
@@ -76,7 +76,7 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		return qualidade;
 	}
 	
-	/*Busca em todas as programa��es(ap�s a data atual) do filme em quest�o, o audio (LEG ou DUB)*/
+	/*Busca em todas as programacoes(apos a data atual) do filme em questao, o audio (LEG ou DUB)*/
 	@Override
 	public List<String> consultaAudioPorFilme(long id_filme, Date data_atual) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();

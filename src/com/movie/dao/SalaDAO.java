@@ -13,12 +13,9 @@ import com.movie.model.Sala;
 
 public class SalaDAO implements ISalaDAO{
 	
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-movie");
-	private EntityManager em = emf.createEntityManager();
-	
 	/*Insere a Sala no Banco de Dados*/
 	@Override
-	void insereSala(Sala sala) throws DAOException{
+	public void insereSala(Sala sala) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
 		em.persist(sala);
@@ -28,7 +25,7 @@ public class SalaDAO implements ISalaDAO{
 
 	/*Remove a Sala do Banco de Dados*/
 	@Override
-	void boolean removeSala(long id) throws DAOException{
+	public void removeSala(long id) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		Sala sala = em.find(Sala.class, id);
 		em.getTransaction().begin();
@@ -39,7 +36,7 @@ public class SalaDAO implements ISalaDAO{
 	
 	/*Altera Sala no Banco de Dados*/
 	@Override
-	void boolean alteraSala(Sala sala) throws DAOException{
+	public void alteraSala(Sala sala) throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		em.getTransaction().begin();
 		em.merge(sala);
@@ -49,7 +46,7 @@ public class SalaDAO implements ISalaDAO{
 	
 	/*Lista todas as salas*/
 	@Override
-	List<Sala> consultaSalas() throws DAOException{
+	public List<Sala> consultaSalas() throws DAOException{
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Sala> salas = new ArrayList<>();
 		

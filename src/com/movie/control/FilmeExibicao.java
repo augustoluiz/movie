@@ -35,8 +35,12 @@ public class FilmeExibicao {
 		}
 		
 		for (Filme f : filmes) {
-			f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
-			f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));	
+			try {
+				f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+				f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		ModelAndView mv = new ModelAndView("filme", "filmes", filmes);
