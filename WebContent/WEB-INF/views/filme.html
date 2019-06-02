@@ -20,6 +20,9 @@
 			<th>Distribuidora</th>
 		</thead>
 		<tbody>
+			<tr th:if="${erro != null}">
+				<td colspan="11"><span th:text="${erro}"></span></td>
+			</tr>
 			<tr th:if="${filmes.empty}">
 				<td colspan="11">Não há filmes cadastrados</td>
 			</tr>

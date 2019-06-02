@@ -1,6 +1,5 @@
 package com.movie.control;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
-import com.movie.dao.exception.DAOException;
 import com.movie.model.Filme;
 
 @Controller
@@ -21,29 +19,31 @@ public class FilmeExibicao {
 	private FormataData formataData = new FormataData();
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
-	@RequestMapping("/filmes-em-exibicao")
-	public ModelAndView Filme() throws ParseException {
+	@RequestMapping(value = {"/","/filmes-em-exibicao"})
+	public ModelAndView Filme() {
 		List<Filme> filmes = new ArrayList<>();
 		Date data_atual = new Date();
+		String erro = null;
 		
 		filmeDAO = new FilmeDAO();
 		
 		try {
 			filmes = filmeDAO.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
-		} catch (DAOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 		}
 		
 		for (Filme f : filmes) {
 			try {
 				f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
 				f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
-			} catch (DAOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 			}
 		}
 		
 		ModelAndView mv = new ModelAndView("filme", "filmes", filmes);
+		mv.addObject("erro", erro);
 		
 		return mv;
 	}
