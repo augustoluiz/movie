@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Programacao {
@@ -19,6 +20,9 @@ public class Programacao {
 	private String audio;
 	private String qualidade;
 	private Date exibicao;
+	
+	@Transient
+	private String nome_sala;
 	
 	public long getId() {
 		return id;
@@ -61,6 +65,12 @@ public class Programacao {
 	}
 	public void setExibicao(Date exibicao) {
 		this.exibicao = exibicao;
+	}
+	public String getNome_sala() {
+		return nome_sala;
+	}
+	public void setNome_sala(String nome_sala) {
+		this.nome_sala = nome_sala;
 	}
 	
 }

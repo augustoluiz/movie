@@ -44,6 +44,14 @@ public class SalaDAO implements ISalaDAO{
 		em.close();
 	}
 	
+	/*Retorna o nome da sala, buscando pelo id*/
+	@Override
+	public String consultaSalaPorId(long id) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		Sala sala = em.find(Sala.class, id);
+		return sala.getNome();
+	}
+	
 	/*Lista todas as salas*/
 	@Override
 	public List<Sala> consultaSalas() throws DAOException{

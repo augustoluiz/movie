@@ -60,6 +60,22 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		return programacoes;
 	}
 	
+	/*Consulta futuras programacoes do filme em questao*/
+	@Override
+	public List<Programacao> consultaProximasProgramacoes(long id_filme, Date data_atual) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		List<Programacao> programacoes = new ArrayList<>();
+				
+		em.getTransaction().begin();
+		TypedQuery<Programacao> query = em.createQuery("SELECT p FROM Programacao p where id_filme like :id_filme and exibicao > :data_atual", Programacao.class);
+		query.setParameter("id_filme",id_filme);
+		query.setParameter("data_atual",data_atual);
+		programacoes = query.getResultList();
+		em.close();
+		
+		return programacoes;
+	}
+	
 	/*Busca em todas as programacoes(apos a data atual) do filme em questao, a qualidade (2D ou 3D)*/
 	@Override
 	public List<String> consultaQualidadePorFilme(long id_filme, Date data_atual) throws DAOException{

@@ -12,6 +12,7 @@ public interface IProgramacaoDAO {
 	void removeProgramacao(long id) throws DAOException;
 	void alteraProgramacao(Programacao programacao) throws DAOException;
 	List<Programacao> consultaProgramacoes(long id_filme) throws DAOException;
+	List<Programacao> consultaProximasProgramacoes(long id_filme, Date data_atual) throws DAOException;
 	List<String> consultaQualidadePorFilme(long id_filme, Date data_atual) throws DAOException;
 	List<String> consultaAudioPorFilme(long id_filme, Date data_atual) throws DAOException;
 

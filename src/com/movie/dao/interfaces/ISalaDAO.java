@@ -10,6 +10,7 @@ public interface ISalaDAO {
     void insereSala(Sala sala) throws DAOException;
 	void removeSala(long id) throws DAOException;
 	void alteraSala(Sala sala) throws DAOException;
+	String consultaSalaPorId(long id) throws DAOException;
 	List<Sala> consultaSalas() throws DAOException;
 
 }
