@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<th>Nome</th>
+			<th>Sinopse</th>
+			<th>Duração</th>
+			<th>Gênero</th>
+			<th>Elenco</th>
+			<th>Diretor</th>
+			<th>Estreia</th>
+			<th>Trailer</th>
+			<th>poster</th>
+			<th>Classif. Indicativa</th>
+			<th>Distribuidora</th>
+			<th>Ação</th>
+		</thead>
+		<tbody>
+			<tr th:if="${erro != null}">
+				<td colspan="11"><span th:text="${erro}"></span></td>
+			</tr>
+			<tr>
+				<td><span th:text="${filme.nome}"> nome </span></td>
+				<td><span th:text="${filme.sinopse}"> sinopse </span></td>
+				<td><span th:text="${#dates.format(filme.duracao, 'HH:mm')}"> duracao </span></td>
+				<td><span th:text="${filme.genero}"> genero </span></td>
+				<td><span th:text="${filme.elenco}"> elenco </span></td>
+				<td><span th:text="${filme.diretor}"> diretor </span></td>
+				<td><span th:text="${#dates.format(filme.estreia, 'dd/MM/yyyy')}"> estreia </span></td>
+				<td><span th:text="${filme.trailer}"> trailer </span></td>
+				<td><span th:text="${filme.poster}"> poster </span></td>
+				<td><span th:text="${filme.classifIndicativa}"> classif.ind </span></td>
+				<td><span th:text="${filme.distribuidora}"> distribuidora </span></td>
+				<td><span th:text="${filme.qualidade}">qualidade</span></td>
+				<td><span th:text="${filme.audio}">audio</span></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+</body>
+</html>

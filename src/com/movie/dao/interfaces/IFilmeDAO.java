@@ -12,6 +12,7 @@ public interface IFilmeDAO {
 	void removeFilme(long id) throws DAOException;
 	void alteraFilme(Filme filme) throws DAOException;
 	List<Filme> consultaFilmes(String nome) throws DAOException;
+	Filme consultaFilme(long id) throws DAOException;
 	List<Filme> listaFilmesEmCartaz(Date data_atual) throws DAOException;
 	List<Filme> listaFilmesEmBreve(Date data_atual) throws DAOException;
 	

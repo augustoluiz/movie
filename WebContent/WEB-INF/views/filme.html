@@ -18,6 +18,7 @@
 			<th>poster</th>
 			<th>Classif. Indicativa</th>
 			<th>Distribuidora</th>
+			<th>Ação</th>
 		</thead>
 		<tbody>
 			<tr th:if="${erro != null}">
@@ -38,6 +39,14 @@
 				<td><span th:text="${f.poster}"> poster </span></td>
 				<td><span th:text="${f.classifIndicativa}"> classif.ind </span></td>
 				<td><span th:text="${f.distribuidora}"> distribuidora </span></td>
+				<td>
+					<a th:href="@{'/filme/' + ${f.id}}">
+        			<span>Delete</span>
+    				</a>
+					<form action="#" th.action="@{'/filme/' + ${f.id}}" method="POST">
+					<button type="submit" name="info">info</button>
+					</form>
+				</td>
 			</tr>
 		</tbody>
 	</table>

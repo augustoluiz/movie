@@ -61,7 +61,18 @@ public class FilmeDAO implements IFilmeDAO{
 		return filmes;
 		
 	}
-
+	
+	/*Consulta Filme pelo id*/
+	@Override
+	public Filme consultaFilme(long id) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		
+		em.getTransaction().begin();
+		Filme filme = em.find(Filme.class, id);
+		em.close();
+		return filme;
+	}
+	
 	/*Lista todos os filmes em cartaz(que tenha a data de estreia menor que a data atual)*/
 	@Override
 	public List<Filme> listaFilmesEmCartaz(Date data_atual) throws DAOException {
