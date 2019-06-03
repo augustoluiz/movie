@@ -39,6 +39,8 @@ public class FilmeDetalhe {
 		try {
 			filme = filmeDAO.consultaFilme(id);
 			programacoes = programacaoDAO.consultaProximasProgramacoes(filme.getId(), formataData.formataDataYMDHM(data_atual));
+			filme.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(filme.getId(), formataData.formataDataYMDHM(data_atual)));
+			filme.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(filme.getId(), formataData.formataDataYMDHM(data_atual)));
 			
 			/*Atribui o nome da sala por programacao e insere datas na lista de dias(key do hash)*/
 			for(Programacao p : programacoes) {
@@ -67,7 +69,7 @@ public class FilmeDetalhe {
 		}
 		
 		
-		ModelAndView mv = new ModelAndView("detalhe", "filme", filme);
+		ModelAndView mv = new ModelAndView("Tela visualizar Filme", "filme", filme);
 		mv.addObject("hashProgramacoes", hashDeProgramacoes);
 		mv.addObject("erro", erro);
 				

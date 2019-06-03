@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!-- Required meta tags -->
@@ -17,7 +17,7 @@
 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="estilo.css">
+	<link rel="stylesheet" href="http://movieresources.000webhostapp.com/estilo.css">
 
 
     <title>Hello, world!</title>
@@ -31,7 +31,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a href="#" class="mr-3"><img class="logo" src="img/logo2.png"></a>
+        <a href="#" class="mr-3"><img class="logo" src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
@@ -53,23 +53,23 @@
 
             <div class="row">
                 <div class="foto col-2 mt-3 text-center">
-                    <img src="c.jpg" class="img-fluid imagem-addfilme" />
-            </div>
+                    <img th:src="${'data:image/png;base64,' + filme.poster}" src="https://img.elo7.com.br/product/zoom/23646C7/big-poster-filme-capita-marvel-tamanho-90x60-cm-presente-geek.jpg" class="img-fluid imagem-addfilme" />
+                </div>
 
                 <div class="campos-filme form col-5 mt-3">
 
                     <div class="row">
-                        <H1 class=" mt-auto mb-auto">Rocky Balboa</H1>
+                        <H1 class=" mt-auto mb-auto" th:text="${filme.nome}">Rocky Balboa</H1>
                         <p class="text-right ml-2">
-                            <img src="img/12.png" class="ico-desc"/>
+                            <img src="img/12.png" th:src="${'http://movieresources.000webhostapp.com/img/' + filme.classifIndicativa + '.png'}" class="ico-desc"/>
                         </p>
                     </div>
 
                     <div class="row filmedesc">
-                            <p><i>2019 - Ação / Lutas 2h 30m</i></p>
+                            <p><i th:text="${#dates.format(filme.estreia, 'dd/MM/yyyy') + ' - ' + filme.genero + ' ' + #dates.format(filme.duracao, 'HH:mm')}">2019 - Ação / Lutas 2h 30m</i></p>
                     </div>
                     <div class="row">
-                        <p class="filmedesc">
+                        <p class="filmedesc" th:text="${filme.sinopse}">
                                 Depois de ter sido derrotado pelo arrogante Clubber Lang, Rocky Balboa decide reconquistar o título de campeão de pesos pesados e se prepara para uma revanche. 
                                 Para treinar, o lutador pede a ajuda de seu antigo adversário, Apollo Creed.
                         </p>
@@ -77,29 +77,29 @@
 
                     <div class="row">
                         <p class="filmedesc">
-                            <img src="img/stars.png" class="ico-desc">
-                            <b>Elenco: </b> Sylvester Stallone, Burt Young, Antonio Tarver, Geraldine Hughes
+                            <img src="http://movieresources.000webhostapp.com/img/stars.png" class="ico-desc">
+                            <b>Elenco: </b> <span th:text="${filme.elenco}" th:remove="tag">Sylvester Stallone, Burt Young, Antonio Tarver, Geraldine Hughes</span>
                         </p>
                     </div>
 
                     <div class="row">
                         <p class="filmedesc">
-                            <img src="img/clapperboard.png" class="ico-desc">
-                            <b>Diretor: </b> Sylvester Stallone
+                            <img src="http://movieresources.000webhostapp.com/img/clapperboard.png" class="ico-desc">
+                            <b>Diretor: </b> <span th:text="${filme.diretor}" th:remove="tag">Sylvester Stallone </span>
                         </p>
                     </div>
 
                     <div class="row">
                         <p class="filmedesc">
-                            <img src="img/calendar.png" class="ico-desc">
-                            <b>Data de Estreia: </b> 20 de dezembro de 2006
+                            <img src="http://movieresources.000webhostapp.com/img/calendar.png" class="ico-desc">
+                            <b>Data de Estreia: </b> <span th:text="${#dates.format(filme.estreia, 'dd MMMM yyyy')}" th:remove="tag">20 de dezembro de 2006</span>
                         </p>
                     </div>
 
                     <div class="row">
                         <p class="filmedesc">
-                            <img src="img/film.png" class="ico-desc">
-                            <b>Distribuidora: </b> Fox Filmes do Brasil
+                            <img src="http://movieresources.000webhostapp.com/img/film.png" class="ico-desc">
+                            <b>Distribuidora: </b> <span th:text="${filme.distribuidora}">Fox Filmes do Brasil</span>
                         </p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                 
                 <div class="campos-filme col-5  text-right">
                     <div class="col-12 mt-3 embed-responsive embed-responsive-16by9" >
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/3VUblDwa648" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="embed-responsive-item" allowfullscreen></iframe>
+                            <iframe width="560" height="315" th:src="${filme.trailer}" src="https://www.youtube.com/embed/3VUblDwa648" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="embed-responsive-item" allowfullscreen></iframe>
                     </div>
                 </div>
 
@@ -120,192 +120,45 @@
                 <div class="container col-12 mt-3">
 
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active bg-s c-s" id="t1-tab" data-toggle="tab" href="#t1" role="tab" aria-controls="t1"
-                                    aria-selected="true"><b>06/03 - Qua</b></a>
+                            <li class="nav-item" th:each="p : ${hashProgramacoes.keySet()}">
+                                <a class="nav-link bg-s c-s" id="t1-tab" th:id="${'t' + #dates.format(p, 'dd/MM/yyyy') + '-tab'}" data-toggle="tab" th:href="${'#t' + #dates.format(p, 'dd-MM-yyyy')}" href="#t1"><b th:text="${#dates.format(p, 'dd/MM/yyyy')}">06/03 - Qua</b></a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link bg-s c-s" id="t2-tab" data-toggle="tab" href="#t2" role="tab" aria-controls="t2"
-                                    aria-selected="false"><b>07/03 - Qui</b></a>
-                            </li>
-
-                            <li class="nav-item">
-                                    <a class="nav-link bg-s c-s" id="t3-tab" data-toggle="tab" href="#t3" role="tab" aria-controls="t3"
-                                        aria-selected="false"><b>08/03 - Qui</b></a>
-                            </li>
-
-                            <li class="nav-item">
-                                    <a class="nav-link bg-s c-s" id="t4-tab" data-toggle="tab" href="#t4" role="tab" aria-controls="t4"
-                                        aria-selected="false"><b>09/03 - Qui</b></a>
-                                </li>
 
                         </ul>
                         
-                        <div class="tab-content" id="myTabContent">
+                        
+                        <div class="tab-content" id="myTabContent" >
 
-                            <div class="tab-pane fade show active" id="t1" role="tabpanel" aria-labelledby="t1-tab">
-                                    <table class="table table-striped ">
-
-                                            <tbody>
+                            <div class="tab-pane fade show" th:each="p : ${hashProgramacoes.keySet()}" id="t1" th:id="${'t' + #dates.format(p, 'dd-MM-yyyy')}" >
+                                    <table class="table table-striped">
+                                            <tbody th:each="l : ${hashProgramacoes.get(p)}">
                                                 <tr>
                         
                                                     <td class="prog-sala prog-font text-center">
-                                                        <b>Sala 1</b>
+                                                        <b th:text="${l.nome_sala}">Sala 1</b>
                                                     </td>
                         
                                                     <td class="form-inline">
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
+                                                        <div class="prog-horario prog-font ml-1 px-1"><b th:text="${#dates.format(l.exibicao, 'HH:mm')}">13:20</b></div>
+
                                                     </td>
                                                     
                                                     <td>
-                                                        <img src="img/DUB.png" class="ico-desc"/>
-                                                        <img src="img/2D.png" class="ico-desc"/>
+                                                        <img src="img/DUB.png" th:src="${'http://movieresources.000webhostapp.com/img/' + filme.audio[0] + '.png'}" class="ico-desc"/>
+                                                        <img src="img/2D.png" th:src="${'http://movieresources.000webhostapp.com/img/' + filme.qualidade[0] + '.png'}" class="ico-desc"/>
                                                     </td>
                         
                                                     <td class="text-right prog-font">
-                                                        <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
+                                                        <b>Inteira: </b> <span th:text="${#numbers.formatCurrency(l.preco) + ' - '}" th:remove="tag"> R$ 28,00 - </span> <b>Meia:</b> <span th:text="${#numbers.formatCurrency(l.preco/2)}" th:remove="tag">R$ 14,00 </span>
                                                     </td>
                         
                                                 </tr>
-                                                <tr>
-                        
-                                                        <td class="prog-sala prog-font text-center">
-                                                            <b>Sala 1</b>
-                                                        </td>
-                            
-                                                        <td class="form-inline">
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <img src="img/DUB.png" class="ico-desc"/>
-                                                            <img src="img/2D.png" class="ico-desc"/>
-                                                        </td>
-                            
-                                                        <td class="text-right prog-font">
-                                                            <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
-                                                        </td>
-                            
-                                                    </tr>
-                                                    <tr>
-                        
-                                                            <td class="prog-sala prog-font text-center">
-                                                                <b>Sala 1</b>
-                                                            </td>
-                                
-                                                            <td class="form-inline">
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <img src="img/DUB.png" class="ico-desc"/>
-                                                                <img src="img/2D.png" class="ico-desc"/>
-                                                            </td>
-                                
-                                                            <td class="text-right prog-font">
-                                                                <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
-                                                            </td>
-                                
-                                                        </tr>
                                             </tbody>
-                                        </table>
-                            </div>
-
-
-
-                            <div class="tab-pane fade show" id="t2" role="tabpanel" aria-labelledby="t2-tab">
-                                    <table class="table table-striped ">
-
-                                            <tbody>
-                                                <tr>
-                        
-                                                    <td class="prog-sala prog-font text-center">
-                                                        <b>Sala 1</b>
-                                                    </td>
-                        
-                                                    <td class="form-inline">
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                        <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <img src="img/DUB.png" class="ico-desc"/>
-                                                        <img src="img/2D.png" class="ico-desc"/>
-                                                    </td>
-                        
-                                                    <td class="text-right prog-font">
-                                                        <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
-                                                    </td>
-                        
-                                                </tr>
-                                                <tr>
-                        
-                                                        <td class="prog-sala prog-font text-center">
-                                                            <b>Sala 1</b>
-                                                        </td>
-                            
-                                                        <td class="form-inline">
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                            <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <img src="img/DUB.png" class="ico-desc"/>
-                                                            <img src="img/2D.png" class="ico-desc"/>
-                                                        </td>
-                            
-                                                        <td class="text-right prog-font">
-                                                            <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
-                                                        </td>
-                            
-                                                    </tr>
-                                                    <tr>
-                        
-                                                            <td class="prog-sala prog-font text-center">
-                                                                <b>Sala 1</b>
-                                                            </td>
-                                
-                                                            <td class="form-inline">
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>13:20</b></div>
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>14:50</b></div>
-                                                                <div class="prog-horario prog-font ml-1 px-1"><b>15:30</b></div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <img src="img/DUB.png" class="ico-desc"/>
-                                                                <img src="img/2D.png" class="ico-desc"/>
-                                                            </td>
-                                
-                                                            <td class="text-right prog-font">
-                                                                <b>Inteira:</b> R$ 28,00 - <b>Meia:</b> R$ 14,00
-                                                            </td>
-                                
-                                                        </tr>
-                                            </tbody>
-                                        </table>
-                            </div>
-
-
-
-
-
-
-                            
+                                    </table>
+                            </div>   
 
                         </div>
-
-                
-                
-                
 
             </div>
 

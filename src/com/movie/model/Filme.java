@@ -1,8 +1,10 @@
 package com.movie.model;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,8 @@ public class Filme {
 	private String diretor;
 	private Date estreia;
 	private String trailer;
+	
+	@Column(length = 16777215)
 	private byte[] poster;
 	private String classifIndicativa;
 	private String distribuidora;
@@ -87,8 +91,9 @@ public class Filme {
 	public void setTrailer(String trailer) {
 		this.trailer = trailer;
 	}
-	public byte[] getPoster() {
-		return poster;
+	public String getPoster() {
+		String stringposter = Base64.getEncoder().encodeToString(poster);
+		return stringposter;
 	}
 	public void setPoster(byte[] poster) {
 		this.poster = poster;
@@ -105,7 +110,6 @@ public class Filme {
 	public void setDistribuidora(String distribuidora) {
 		this.distribuidora = distribuidora;
 	}
-	
 	public List<String> getQualidade() {
 		return qualidade;
 	}

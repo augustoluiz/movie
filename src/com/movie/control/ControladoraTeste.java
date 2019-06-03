@@ -26,6 +26,41 @@ public class ControladoraTeste {
 			filme.setClassifIndicativa("12");
 			filme.setPoster(null);
 			filme.setDistribuidora("Marvel Studios");
+			
+		
+			/*
+			 Filme filme = new Filme();
+			filme.setNome("Cidade de Deus");
+			filme.setSinopse("Filme do ze pequeno");
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			filme.setDuracao(sdf.parse("02:30"));
+			filme.setGenero("Ação/Drama");
+			filme.setElenco("Ze pequeno e Busca pe");
+			filme.setDiretor("Semaj Rednaw");
+			
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			filme.setEstreia(sdf1.parse("2020-04-23"));
+			filme.setTrailer("https://www.youtube.com/watch?v=TcMBFSGVi1c");
+			filme.setClassifIndicativa("livre");
+			filme.setPoster(null);
+			filme.setDistribuidora("Semaj Productions");
+			 */
+		
+		 /*Filme filme = new Filme();
+		filme.setNome("Vovo Zona 2");
+		filme.setSinopse("Filme da Velha Gorda");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		filme.setDuracao(sdf.parse("01:30"));
+		filme.setGenero("Comedia");
+		filme.setElenco("Carinha que faz a vovo zona");
+		filme.setDiretor("Semaj Rednaw");
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		filme.setEstreia(sdf1.parse("2019-04-23"));
+		filme.setTrailer("https://www.youtube.com/watch?v=TcMBFSGVi1c");
+		filme.setClassifIndicativa("10");
+		filme.setPoster(null);
+		filme.setDistribuidora("Semaj Productions");*/
 
 			FilmeDAO filmeDAO = new FilmeDAO();
 			try {
