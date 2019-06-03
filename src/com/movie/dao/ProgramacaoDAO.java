@@ -107,5 +107,24 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		
 		return audio;
 	}
+
+	/*Retorna se uma determinada sala esta associada a alguma programacao*/
+	@Override
+	public boolean consultaSalaPorProgramacao(long id_sala) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		int qtd_programacoes = 0;
+		
+		em.getTransaction().begin();
+		TypedQuery<Integer> query = em.createQuery("SELECT COUNT(*) p FROM Programacao p where id_sala like :id_sala", Integer.class);
+		query.setParameter("id_sala",id_sala);
+		qtd_programacoes = query.getSingleResult();
+		em.close();
+		
+		if(qtd_programacoes > 0) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 }
