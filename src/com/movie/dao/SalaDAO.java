@@ -1,4 +1,4 @@
-package com.movie.dao;
+ package com.movie.dao;
 
 import java.util.ArrayList;
 import java.util.List;

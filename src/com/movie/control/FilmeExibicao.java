@@ -32,7 +32,7 @@ public class FilmeExibicao {
 		} catch (Exception e) {
 			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 		}
-		
+		 
 		for (Filme f : filmes) {
 			try {
 				f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));

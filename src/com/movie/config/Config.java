@@ -26,6 +26,7 @@ public class Config implements WebMvcConfigurer {
 		tr.setPrefix("/WEB-INF/views/");
 		tr.setSuffix(".html");
 		tr.setTemplateMode(TemplateMode.HTML);
+		tr.setCharacterEncoding("utf-8");
 		tr.setCacheable(true);
 		return tr;
 	}

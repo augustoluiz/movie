@@ -99,7 +99,7 @@
 							</div>
 							<br />
 							<div class="row">
-								<a class="col-12"><button type="button" class="btn col-12 controles bg-p c-p"><b>Trailer</b></button></a>
+								<a class="col-12"><button type="button" class="btn col-12 controles bg-p c-p" data-toggle="modal" th:data-target="${'#id' + f.id}" ><b>Trailer</b></button></a>
 							</div>
 
 						</div>
@@ -152,7 +152,7 @@
 							</div>
 							<br />
 							<div class="row">
-								<a class="col-12"><button type="button" class="btn col-12 controles bg-p c-p"><b>Trailer</b></button></a>
+								<a class="col-12"><button type="button" class="btn col-12 controles bg-p c-p" data-toggle=" modal" data-target="#ExemploModalCentralizado"><b>Trailer</b></button></a>
 							</div>
 
 						</div>
@@ -165,7 +165,24 @@
 		</div>
 	</div>
 
+    <span th:each="c : ${cartaz}">
+		<div class="modal fade" th:id="${'id' + c.id}" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			  <div class="modal-content">
+				<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+								<span aria-hidden="true">&times;</span>
+							  </button>
+						<div class="col-12 mt-3 embed-responsive embed-responsive-16by9" >
+							<iframe width="560" height="315" th:src="${c.trailer}" src="https://www.youtube.com/embed/3VUblDwa648" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="embed-responsive-item" allowfullscreen></iframe>
+						</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</span>
 
+		
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

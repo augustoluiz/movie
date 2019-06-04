@@ -4,28 +4,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import com.movie.dao.FilmeDAO;
+import com.movie.dao.ProgramacaoDAO;
 import com.movie.dao.exception.DAOException;
 import com.movie.model.Filme;
+import com.movie.model.Programacao;
 
 public class ControladoraTeste {
 	
 	public static void main(String[] args) throws ParseException {
 //	
-			Filme filme = new Filme();
-			filme.setNome("Avengers - EndGame");
-			filme.setSinopse("Filme dos Vingadores");
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-			filme.setDuracao(sdf.parse("03:10"));
-			filme.setGenero("Ação/Aventura");
-			filme.setElenco("Robert Downey Jr");
-			filme.setDiretor("Irmãos Russo");
-			
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-			filme.setEstreia(sdf1.parse("2019-04-23"));
-			filme.setTrailer("https://www.youtube.com/watch?v=TcMBFSGVi1c");
-			filme.setClassifIndicativa("12");
-			filme.setPoster(null);
-			filme.setDistribuidora("Marvel Studios");
+//			Filme filme = new Filme();
+//			filme.setNome("Avengers - EndGame");
+//			filme.setSinopse("Filme dos Vingadores");
+//			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//			filme.setDuracao(sdf.parse("03:10"));
+//			filme.setGenero("Ação/Aventura");
+//			filme.setElenco("Robert Downey Jr");
+//			filme.setDiretor("Irmãos Russo");
+//			
+//			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+//			filme.setEstreia(sdf1.parse("2019-04-23"));
+//			filme.setTrailer("https://www.youtube.com/watch?v=TcMBFSGVi1c");
+//			filme.setClassifIndicativa("12");
+//			filme.setPoster(null);
+//			filme.setDistribuidora("Marvel Studios");
 			
 		
 			/*
@@ -62,14 +64,14 @@ public class ControladoraTeste {
 		filme.setPoster(null);
 		filme.setDistribuidora("Semaj Productions");*/
 
-			FilmeDAO filmeDAO = new FilmeDAO();
-			try {
-				filmeDAO.insereFilme(filme);
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//			
+//			FilmeDAO filmeDAO = new FilmeDAO();
+//			try {
+//				filmeDAO.insereFilme(filme);
+//			} catch (DAOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+////			
 //			if(filmeDAO.insereFilme(filme)) {
 //				System.out.println("Dados inseridos");
 //			} else {
@@ -120,21 +122,29 @@ public class ControladoraTeste {
 //				System.out.println(s.getNome());
 //			}
 		
-//			Programacao prog = new Programacao();
+			Programacao prog = new Programacao();
 			
 //			prog.setId(1);
-//			prog.setId_filme(1);
-//			prog.setId_sala(1);
-//			prog.setAudio("LEG");
-//			
-//			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//			prog.setExibicao(sdf2.parse("2019-07-26 23:12"));
-//			
-//			prog.setPreco(23.50);
-//			prog.setQualidade("2D");
-//			
-//			ProgramacaoDAO progDAO = new ProgramacaoDAO();
-//			
+			prog.setId_filme(1);
+			prog.setId_sala(1);
+			prog.setAudio("LEG");
+			
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			prog.setExibicao(sdf2.parse("2019-07-26 23:12"));
+			
+			prog.setPreco(23.50);
+			prog.setQualidade("2D");
+			
+			
+			ProgramacaoDAO progDAO = new ProgramacaoDAO();
+			
+			try {
+				progDAO.insereProgramacao(prog);
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 //			if(progDAO.alteraProgramacao(prog)) {
 //				System.out.println("Programação Inserida com sucesso");
 //			} else {
