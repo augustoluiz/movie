@@ -103,5 +103,19 @@ public class FilmeDAO implements IFilmeDAO{
 		
 		return filmes;
 	}
+
+	@Override
+	public List<Filme> listaFilmesCadastrados() throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		
+		List<Filme> filmes = new ArrayList<>();
+		
+		em.getTransaction().begin();
+		TypedQuery<Filme> query = em.createQuery("SELECT f FROM Filme f", Filme.class);
+		filmes = query.getResultList();
+		em.close();
+		
+		return filmes;
+	}
 	 
 }

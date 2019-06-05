@@ -15,5 +15,5 @@ public interface IFilmeDAO {
 	Filme consultaFilme(long id) throws DAOException;
 	List<Filme> listaFilmesEmCartaz(Date data_atual) throws DAOException;
 	List<Filme> listaFilmesEmBreve(Date data_atual) throws DAOException;
-	
+	List<Filme> listaFilmesCadastrados() throws DAOException;
 }

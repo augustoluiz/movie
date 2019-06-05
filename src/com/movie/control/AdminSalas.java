@@ -1,8 +1,5 @@
 package com.movie.control;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,24 +15,6 @@ public class AdminSalas {
 	
 	private SalaDAO salaDAO = new SalaDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
-	
-	@RequestMapping(value = {"/admin/salas"})
-	public ModelAndView Filme() {
-		List<Sala> salas = new ArrayList<>();
-		String erro = null;
-		
-		try {
-			salas = salaDAO.consultaSalas();
-		} catch (DAOException e) {
-			e.printStackTrace();
-			erro = "Erro ao exibir as salas";
-		}
-		
-		ModelAndView mv = new ModelAndView("sala", "salas", salas);
-		mv.addObject("erro", erro);
-		
-		return mv;
-	}
 	
 	@RequestMapping(value = {"/admin/addSala"})
 	public ModelAndView addSala(
