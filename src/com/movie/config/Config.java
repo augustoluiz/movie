@@ -1,4 +1,6 @@
 package com.movie.config;
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +49,23 @@ public class Config implements WebMvcConfigurer {
 		// viewResolver.setViewNames(new String[] {".html", ".xhtml"});
 		return viewResolver;
 	}
-
+	
+	@Bean
+	public Properties hibernateProperties() { 
+		Properties p = new Properties();
+		p.put("hibernate.dialect", 
+				"org.hibernate.dialect.MariaDB53Dialect");
+		p.put("hibernate.hbm2ddl.auto", "update");
+		p.put("hibernate.format_sql", false);
+		p.put("hibernate.use_sql_comments", true);
+		p.put("hibernate.show_sql", true);
+		p.put("hibernate.max_fetch_depth", 3);
+		p.put("hibernate.jdbc.batch_size", 10);
+		p.put("hibernate.jdbc.fetch_size", 50);
+		p.put("hibernate.connection.pool_size",100);
+		return p;
+	}
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 			registry.viewResolver(viewResolver());

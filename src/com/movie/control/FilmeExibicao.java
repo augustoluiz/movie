@@ -30,6 +30,7 @@ public class FilmeExibicao {
 		try {
 			filmes = filmeDAO.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
 		} catch (Exception e) {
+			e.printStackTrace();
 			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 		}
 		 
@@ -38,6 +39,7 @@ public class FilmeExibicao {
 				f.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
 				f.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
 			} catch (Exception e) {
+				e.printStackTrace();
 				erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 			}
 		}
