@@ -49,7 +49,7 @@ public class AdminListaFilmeESala {
 		}
 		
 		
-		ModelAndView mv = new ModelAndView("Tela Filmes e Salas Admin");
+		ModelAndView mv = new ModelAndView("Tela Filmes e Salas Administrador");
 		mv.addObject("filmes", filmes);
 		mv.addObject("salas", salas);
 		mv.addObject("erro", erro);

@@ -91,7 +91,7 @@ public class FilmeLista {
 		}
 		
 		
-		ModelAndView mv = new ModelAndView("buscaFilme", "filmes", filmes);
+		ModelAndView mv = new ModelAndView("Tela Filmes Pesquisa", "filmes", filmes);
 		mv.addObject("erro", erro);
 				
 		return mv;
