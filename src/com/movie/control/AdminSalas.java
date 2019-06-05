@@ -64,11 +64,11 @@ public class AdminSalas {
 			if(programacaoDAO.consultaSalaPorProgramacao(sala.getId())) {
 				erro = "Impossível excluir a sala. Ela está associada a programações";
 			} else {
-				salaDAO.alteraSala(sala);
+				salaDAO.removeSala(sala.getId());
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();
-			erro = "Erro ao alterar a sala";
+			erro = "Erro ao excluir a sala";
 		}
 		
 		ModelAndView mv = new ModelAndView("sala", "sala", sala);
