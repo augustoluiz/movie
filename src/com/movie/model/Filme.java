@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Filme {
 	
@@ -19,15 +21,20 @@ public class Filme {
 	private long id;
 	private String nome;
 	private String sinopse;
+	
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date duracao;
 	private String genero;
 	private String elenco;
 	private String diretor;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date estreia;
 	private String trailer;
 	
 	@Column(length = 16777215)
 	private byte[] poster;
+
 	private String classifIndicativa;
 	private String distribuidora;
 	
@@ -91,9 +98,13 @@ public class Filme {
 	public void setTrailer(String trailer) {
 		this.trailer = trailer;
 	}
-	public String getPoster() {
+	public String getPosterBase64() {
+		
 		String stringposter = Base64.getEncoder().encodeToString(poster);
 		return stringposter;
+	}
+	public byte[] getPoster() {
+		return poster;
 	}
 	public void setPoster(byte[] poster) {
 		this.poster = poster;

@@ -26,7 +26,7 @@ public class FilmeLista {
 		List<Filme> cartaz = new ArrayList<>();
 		List<Filme> breve = new ArrayList<>();
 		Date data_atual = new Date();
-		String erro = null;
+		String erro = "";
 		
 		
 		try {
@@ -71,7 +71,7 @@ public class FilmeLista {
 	public ModelAndView pesquisaFilme(@PathVariable String nome) {
 		
 		List<Filme> filmes = new ArrayList<>();
-		String erro = null;
+		String erro = "";
 		Date data_atual = new Date();
 		
 		try {

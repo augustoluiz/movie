@@ -20,7 +20,7 @@ public class AdminSalas {
 	public ModelAndView addSala(
 				@ModelAttribute("sala") Sala sala) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			salaDAO.insereSala(sala);
@@ -39,7 +39,7 @@ public class AdminSalas {
 	public ModelAndView alteraSala(
 				@ModelAttribute("sala") Sala sala) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			salaDAO.alteraSala(sala);
@@ -58,7 +58,7 @@ public class AdminSalas {
 	public ModelAndView excluiSala(
 				@ModelAttribute("sala") Sala sala) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			if(programacaoDAO.consultaSalaPorProgramacao(sala.getId())) {

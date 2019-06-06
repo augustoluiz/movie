@@ -30,7 +30,7 @@ public class AdminListaFilmeESala {
 		List<Filme> filmes = new ArrayList<>();
 		List<Sala> salas = new ArrayList<>();
 		Date data_atual = new Date();
-		String erro = null;
+		String erro = "";
 		
 		try {
 			filmes = filmeDAO.listaFilmesCadastrados();
@@ -61,7 +61,7 @@ public class AdminListaFilmeESala {
 	public ModelAndView pesquisaFilme(@PathVariable String nome) {
 		
 		List<Filme> filmes = new ArrayList<>();
-		String erro = null;
+		String erro = "";
 		Date data_atual = new Date();
 		
 		try {

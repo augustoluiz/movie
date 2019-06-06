@@ -17,7 +17,7 @@
 
 
 	<!-- Custom CSS -->
-	<link rel="stylesheet" href="estilo.css">
+	<link rel="stylesheet" href="http://movieresources.000webhostapp.com/estilo.css">
 
 
 	<title>Hello, world!</title>
@@ -32,7 +32,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<a href="#" class="mr-3"><img class="logo" src="img/logo2.png"></a>
+		<a href="#" class="mr-3"><img class="logo" src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
@@ -49,33 +49,37 @@
 	</nav>
 
 	<div class="container col-12 mt-3">
+			<form action="#" method="POST" th:action="@{/admin/addFilme}" th:object="${filme}" enctype="multipart/form-data">
+
 		<div class="formfilme col-11 mx-auto mt-auto mb-5">
 
             <div class="row">
                 <div class="foto col-2 mt-3 text-center">
-                    <img src="c.jpg" class="img-fluid imagem-addfilme"/>
+                    <!--<img src="c.jpg" class="img-fluid imagem-addfilme"/> -->
+
+									<input type="hidden" th:field="*{id}" th:value="*{id}">
 
                     <label for="file-upload" class="custom-file-upload bg-p c-p col-12">
                         <center><b>Alterar Foto</b></center>
                     </label>
-                    <input id="file-upload" type="file"/>
+                   <input id="file-upload" name="poster" type="file" th:field="*{poster}"/>
 
                 </div>
                 <div class="campos-filme form col-10 mt-3">
                     <div class="form-row col-12 mb-3">
-                        <b>Nome </b> <input type="text" name="nome" class="ml-2 form-control col">
+                        <b>Nome </b> <input type="text" name="nome" th:field="*{nome}" class="ml-2 form-control col">
                     </div>
 
                     <div class="form-row col-12 container-fluid mb-3">
-                            <b>Duração </b> <input type="text" name="horas" class="ml-2 form-control col"> <b>h</b> <input type="text" name="horas" class="ml-2 form-control col"><b class="mr-3">min</b>
-                            <b>Gênero </b> <input type="text" name="genero" class="ml-2 form-control col mr-3">
+                            <b>Duração </b> <input type="time" data-date="" data-data-format="HH:mm" name="duracao" th:field="*{duracao}" class="ml-2 form-control col">
+                            <b>Gênero </b> <input type="text" name="genero" th:field="*{genero}" class="ml-2 form-control col mr-3">
                             <b>Classificação indicativa </b> 
-                            <select class="form-control ml-2 col" name="indicativa" id="exampleFormControlSelect1">
-                                    <option>Livre</option>
-                                    <option>10</option>
-                                    <option>12</option>
-                                    <option>16</option>
-                                    <option>18</option>
+                            <select class="form-control ml-2 col" name="indicativa" th:field="*{classifIndicativa}" id="exampleFormControlSelect1">
+                                    <option th:value="${'Livre'}">Livre</option>
+                                    <option th:value="${'10'}">10</option>
+                                    <option th:value="${'12'}">12</option>
+                                    <option th:value="${'16'}">16</option>
+                                    <option th:value="${'18'}">18</option>
                             </select> 
                             <!--<input type="text" name="nome" class="ml-2 form-control col" >-->
                     </div>
@@ -83,31 +87,31 @@
                     <div class="form-row form-inline col-12 mb-3">
                         <div class="col-6">
                             <b>Sinopse</b>
-                            <textarea class="form-control" rows="10" name="sinopse" style="min-width: 100%"></textarea>
+                            <textarea class="form-control" rows="10" name="sinopse" th:field="*{sinopse}" style="min-width: 100%"></textarea>
                         </div>
 
                         <div class="col-6">
                                 <div class="form-row col-12 mt-2">
-                                        <b>Elenco </b> <input type="text" name="elenco" class="ml-2 form-control col">
+                                        <b>Elenco </b> <input type="text" name="elenco" th:field="*{elenco}" class="ml-2 form-control col">
                                 </div>
                                 <div class="form-row col-12 mt-2">
-                                        <b>Diretor </b> <input type="text" name="diretor" class="ml-2 form-control col">
+                                        <b>Diretor </b> <input type="text" name="diretor" th:field="*{diretor}" class="ml-2 form-control col">
                                 </div>
                                 <div class="form-row col-12 mt-2">
-                                        <b>Data de Estreia </b> <input type="date" name="data" class="ml-2 form-control col">
+                                       <b>Data de Estreia </b> <input type="date" data-date="" name="data" th:field="*{estreia}" class="ml-2 form-control col">
                                 </div>  
 
                                 <div class="form-row col-12 mt-2">
-                                        <b>Distribuidora </b> <input type="text" name="distribuidora" class="ml-2 form-control col">
+                                        <b>Distribuidora </b> <input type="text" name="distribuidora" th:field="*{distribuidora}" class="ml-2 form-control col">
                                 </div>
                                 <div class="form-row col-12 mt-2">
-                                        <b>Trailer </b> <input type="text" name="trailer" class="ml-2 form-control col">
+                                        <b>Trailer </b> <input type="text" name="trailer" th:field="*{trailer}" class="ml-2 form-control col">
                                 </div>
 
                         </div>
                     </div>
 
-                </div>
+								</div>
 						</div>
             <div class="row mr-2 ml-2">
 								<h1 class="c-s">Programação</h1>
@@ -160,8 +164,10 @@
 						</div>
 						<hr></hr>
 						<div class="row">
-								<button type="button" class="btn col-2 ml-auto mr-4 mb-3 controles bg-p c-p"><b>Salvar Filme</b></button>
+								<button type="submit" class="btn col-2 ml-auto mr-4 mb-3 controles bg-p c-p"><b>Salvar Filme</b></button>
 						</div>
+					</form>
+
         </div>
 	</div>
 

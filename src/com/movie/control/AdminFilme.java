@@ -1,8 +1,13 @@
 package com.movie.control;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
@@ -17,15 +22,18 @@ public class AdminFilme {
 	private FilmeDAO filmeDAO = new FilmeDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	
-	@RequestMapping(value = {"/admin/addFilme"})
-	public ModelAndView addFilme(
-				@ModelAttribute("filme") Filme filme) {
+	@RequestMapping(value = {"/admin/addFilme"}, method=RequestMethod.POST)
+	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam("poster") MultipartFile files) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
-			filmeDAO.insereFilme(filme);;
-		} catch (DAOException e) {
+			System.out.println(filme.getNome());
+			System.out.println(filme.getEstreia());
+			System.out.println(filme.getDistribuidora());
+			filme.setPoster(files.getBytes());
+			filmeDAO.insereFilme(filme);
+		} catch (DAOException | IOException e) {
 			e.printStackTrace();
 			erro = "Erro ao adicionar o Filme";
 		}
@@ -36,11 +44,20 @@ public class AdminFilme {
 		return mv;
 	}
 	
+	@RequestMapping(value = {"/admin/adicionarFilme"})
+	public ModelAndView CadastroFilme() {
+		Filme filme = new Filme();
+		
+		ModelAndView mv = new ModelAndView("Tela adicionar filme", "filme", filme);
+	
+		return mv;
+	}
+	
 	@RequestMapping(value = {"/admin/alteraFilme"})
 	public ModelAndView alteraFilme(
 				@ModelAttribute("filme") Filme filme) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			filmeDAO.alteraFilme(filme);
@@ -59,11 +76,11 @@ public class AdminFilme {
 	public ModelAndView excluiFilme(
 				@ModelAttribute("filme") Filme filme) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			if(programacaoDAO.consultaFilmePorProgramacao(filme.getId())) {
-				erro = "Impossível excluir o filme. Ele está associada a programações";
+				erro = "Impossï¿½vel excluir o filme. Ele estï¿½ associada a programaï¿½ï¿½es";
 			} else {
 				filmeDAO.removeFilme(filme.getId());
 			}
@@ -82,13 +99,13 @@ public class AdminFilme {
 	public ModelAndView addProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			programacaoDAO.insereProgramacao(programacao);
 		} catch (DAOException e) {
 			e.printStackTrace();
-			erro = "Erro ao adicionar a Programação";
+			erro = "Erro ao adicionar a Programaï¿½ï¿½o";
 		}
 		
 		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
@@ -101,13 +118,13 @@ public class AdminFilme {
 	public ModelAndView alteraProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			programacaoDAO.alteraProgramacao(programacao);
 		} catch (DAOException e) {
 			e.printStackTrace();
-			erro = "Erro ao alterar a Programação";
+			erro = "Erro ao alterar a Programaï¿½ï¿½o";
 		}
 		
 		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
@@ -120,13 +137,13 @@ public class AdminFilme {
 	public ModelAndView excluiProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
-		String erro = null;
+		String erro = "";
 		
 		try {
 			programacaoDAO.removeProgramacao(programacao.getId());
 		} catch (DAOException e) {
 			e.printStackTrace();
-			erro = "Erro ao excluir a Programação";
+			erro = "Erro ao excluir a Programaï¿½ï¿½o";
 		}
 		
 		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);

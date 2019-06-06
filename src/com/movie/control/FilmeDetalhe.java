@@ -33,7 +33,7 @@ public class FilmeDetalhe {
 		List<Date> dias_exibicao = new ArrayList<>();
 		Map<Date, List<Programacao>> hashDeProgramacoes = new HashMap<>();
 		
-		String erro = null;
+		String erro = "";
 		Date data_atual = new Date();
 		
 		try {

@@ -23,7 +23,7 @@ public class FilmeExibicao {
 	public ModelAndView Filme() {
 		List<Filme> filmes = new ArrayList<>();
 		Date data_atual = new Date();
-		String erro = null;
+		String erro = "";
 		
 		filmeDAO = new FilmeDAO();
 		
