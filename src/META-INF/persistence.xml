@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
@@ -11,10 +12,9 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/movie" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<!-- Para rodar nos computadores da Fatec é necessário colocar a senha "alunofatec" -->
-			<property name="javax.persistence.jdbc.password" value="alunofatec" />
+			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
-		
 		      <!-- Configuring Connection Pool -->
 		      <property name="hibernate.c3p0.min_size" value="20" />
 		      <property name="hibernate.c3p0.max_size" value="100" />

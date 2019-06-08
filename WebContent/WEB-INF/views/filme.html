@@ -9,8 +9,8 @@
 		<thead>
 			<th>Nome</th>
 			<th>Sinopse</th>
-			<th>Duração</th>
-			<th>Gênero</th>
+			<th>Duraï¿½ï¿½o</th>
+			<th>Gï¿½nero</th>
 			<th>Elenco</th>
 			<th>Diretor</th>
 			<th>Estreia</th>
@@ -18,14 +18,14 @@
 			<th>poster</th>
 			<th>Classif. Indicativa</th>
 			<th>Distribuidora</th>
-			<th>Ação</th>
+			<th>Aï¿½ï¿½o</th>
 		</thead>
 		<tbody>
 			<tr th:if="${erro != null}">
 				<td colspan="11"><span th:text="${erro}"></span></td>
 			</tr>
 			<tr th:if="${filmes.empty}">
-				<td colspan="11">Não há filmes cadastrados</td>
+				<td colspan="11">Nï¿½o hï¿½ filmes cadastrados</td>
 			</tr>
 			<tr th:each="f : ${filmes}">
 				<td><span th:text="${f.nome}"> nome </span></td>
@@ -36,7 +36,7 @@
 				<td><span th:text="${f.diretor}"> diretor </span></td>
 				<td><span th:text="${#dates.format(f.estreia, 'dd/MM/yyyy')}"> estreia </span></td>
 				<td><span th:text="${f.trailer}"> trailer </span></td>
-				<td><span th:text="${f.poster}"> poster </span></td>
+				<td><span th:text="${f.getPosterBase64()}"> poster </span></td>
 				<td><span th:text="${f.classifIndicativa}"> classif.ind </span></td>
 				<td><span th:text="${f.distribuidora}"> distribuidora </span></td>
 				<td>

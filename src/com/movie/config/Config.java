@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,6 +22,15 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class Config implements WebMvcConfigurer {
 	@Autowired
 	ApplicationContext ctx;
+	
+	@Bean
+	public MultipartResolver multipartResolver() { 
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10 * 1024 * 1024); // 10 mb
+		multipartResolver.setMaxUploadSizePerFile(3 * 1024 * 1024); // 3 mb
+		return multipartResolver;
+	}
+	
 	
 	@Bean
 	public SpringResourceTemplateResolver templateResolver(){
@@ -66,10 +77,12 @@ public class Config implements WebMvcConfigurer {
 		return p;
 	}
 	
+
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 			registry.viewResolver(viewResolver());
 	}
+	
 
 
 } 

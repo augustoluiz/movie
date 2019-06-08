@@ -23,17 +23,20 @@ public class AdminFilme {
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	
 	@RequestMapping(value = {"/admin/addFilme"}, method=RequestMethod.POST)
-	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam("poster") MultipartFile files) {
+	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) throws IOException {
 		
 		String erro = "";
+		System.out.println(files.getBytes());
+		System.out.println(files.getSize());
 		
 		try {
 			System.out.println(filme.getNome());
 			System.out.println(filme.getEstreia());
 			System.out.println(filme.getDistribuidora());
 			filme.setPoster(files.getBytes());
+			System.out.println(filme.getPosterBase64());
 			filmeDAO.insereFilme(filme);
-		} catch (DAOException | IOException e) {
+		} catch (IOException | DAOException e ) {
 			e.printStackTrace();
 			erro = "Erro ao adicionar o Filme";
 		}

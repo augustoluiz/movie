@@ -99,7 +99,6 @@ public class Filme {
 		this.trailer = trailer;
 	}
 	public String getPosterBase64() {
-		
 		String stringposter = Base64.getEncoder().encodeToString(poster);
 		return stringposter;
 	}
