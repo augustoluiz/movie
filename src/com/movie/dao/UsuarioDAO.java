@@ -14,7 +14,7 @@ public class UsuarioDAO implements IUsuarioDAO{
 	
 	/*Verifica se a senha e login estao cadastradas*/
 	@Override
-	public void confereUsuario(String login, String senha) {
+	public boolean confereUsuario(String login, String senha) {
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
 		List<Usuario> usuario = new ArrayList<>();
 		
@@ -24,7 +24,12 @@ public class UsuarioDAO implements IUsuarioDAO{
 		query.setParameter("senha",senha.toUpperCase());
 		usuario = query.getResultList();
 		em.close();
-
+		
+		if(!usuario.isEmpty()) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

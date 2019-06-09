@@ -5,49 +5,63 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
 import com.movie.dao.SalaDAO;
+import com.movie.dao.UsuarioDAO;
 import com.movie.model.Filme;
 import com.movie.model.Sala;
+import com.movie.model.Usuario;
 
 @Controller
 public class AdminListaFilmeESala {
 	
 	private FilmeDAO filmeDAO = new FilmeDAO();
-	private FormataData formataData = new FormataData();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	private SalaDAO salaDAO = new SalaDAO();
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
+	
+	private FormataData formataData = new FormataData();
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
-	@RequestMapping(value = {"/adminFilme"})
-	public ModelAndView Filme() {
+	@RequestMapping(value = {"/adminFilme"}, method=RequestMethod.POST)
+	public ModelAndView Filme(@ModelAttribute("usuario") Usuario usuario) {
 		
 		List<Filme> filmes = new ArrayList<>();
 		List<Sala> salas = new ArrayList<>();
 		Date data_atual = new Date();
 		String erro = "";
+	
 		
 		try {
-			filmes = filmeDAO.listaFilmesCadastrados();
-			salas = salaDAO.consultaSalas();
+			if(usuarioDAO.confereUsuario(usuario.getLogin(), usuario.getSenha())) {
+				filmes = filmeDAO.listaFilmesCadastrados();
+				salas = salaDAO.consultaSalas();
+				
+				for (Filme f : filmes) {
+					try {
+						f.setAudio(programacaoDAO.consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+						f.setQualidade(programacaoDAO.consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
+					} catch (Exception e) {
+						erro = "Ocorreu um erro inepserado, por favor contate o administrador";
+					}
+				}
+			} else {
+				ModelAndView mv = new ModelAndView("Tela Login", "usuario", usuario);
+				return mv;
+			}
 		} catch (Exception e) {
 			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
+			ModelAndView mv = new ModelAndView("Tela Login", "usuario", usuario);
+			mv.addObject(erro);
+			return mv;
 		}
-		
-		for (Filme f : filmes) {
-			try {
-				f.setAudio(programacaoDAO.consultaAudioPorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
-				f.setQualidade(programacaoDAO.consultaQualidadePorFilme(f.getId(), formataData.formataDataYMDHM(data_atual)));
-			} catch (Exception e) {
-				erro = "Ocorreu um erro inepserado, por favor contate o administrador";
-			}
-		}
-		
 		
 		ModelAndView mv = new ModelAndView("Tela Filmes e Salas Administrador");
 		mv.addObject("filmes", filmes);

@@ -20,6 +20,7 @@ import com.movie.dao.SalaDAO;
 import com.movie.dao.exception.DAOException;
 import com.movie.model.Filme;
 import com.movie.model.Programacao;
+import com.movie.model.Sala;
 
 @Controller
 public class AdminFilme {
@@ -70,6 +71,7 @@ public class AdminFilme {
 		
 		Filme filme = new Filme();
 		List<Programacao> programacoes = new ArrayList<>();
+		List<Sala> salas = new ArrayList<>();
 		
 		String erro = "";
 		Date data_atual = new Date();
@@ -85,6 +87,8 @@ public class AdminFilme {
 				p.setNome_sala(salaDAO.consultaSalaPorId(p.getId_sala()));
 			}
 			
+			salas = salaDAO.consultaSalas();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			erro = "Ocorreu um erro inesperado, por favor contate um administrador";
@@ -93,6 +97,7 @@ public class AdminFilme {
 		
 		ModelAndView mv = new ModelAndView("Tela Alterar Filme", "filme", filme);
 		mv.addObject("programacoes", programacoes);
+		mv.addObject("salas", salas);
 		mv.addObject("erro", erro);
 				
 		return mv;
