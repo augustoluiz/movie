@@ -72,6 +72,7 @@ public class AdminFilme {
 		Filme filme = new Filme();
 		List<Programacao> programacoes = new ArrayList<>();
 		List<Sala> salas = new ArrayList<>();
+		Programacao prog = new Programacao();
 		
 		String erro = "";
 		Date data_atual = new Date();
@@ -94,11 +95,14 @@ public class AdminFilme {
 			erro = "Ocorreu um erro inesperado, por favor contate um administrador";
 		}
 		
+		prog.setId_filme(id);
 		
-		ModelAndView mv = new ModelAndView("Tela Alterar Filme", "filme", filme);
+		ModelAndView mv = new ModelAndView("Tela Alterar filme", "filme", filme);
 		mv.addObject("programacoes", programacoes);
+		mv.addObject("prog",prog);
 		mv.addObject("salas", salas);
 		mv.addObject("erro", erro);
+		
 				
 		return mv;
 		
@@ -153,7 +157,7 @@ public class AdminFilme {
 		return mv;
 	}
 	
-	@RequestMapping(value = {"/admin/addProg"})
+	@RequestMapping(value = {"/admin/addProg"}, method=RequestMethod.POST)
 	public ModelAndView addProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -166,10 +170,13 @@ public class AdminFilme {
 			erro = "Erro ao adicionar a Programa��o";
 		}
 		
-		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
-		mv.addObject(erro);
+		//ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
+		//mv.addObject(erro);
 		
-		return mv;
+		//return mv;
+		
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
+
 	}
 	
 	@RequestMapping(value = {"/admin/alteraProg"})

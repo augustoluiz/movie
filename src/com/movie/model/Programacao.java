@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Programacao {
 	
@@ -19,6 +21,7 @@ public class Programacao {
 	private double preco;
 	private String audio;
 	private String qualidade;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date exibicao;
 	
 	@Transient

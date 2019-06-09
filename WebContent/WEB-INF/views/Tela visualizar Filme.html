@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="foto col-2 mt-3 text-center">
-                    <img th:src="${'data:image/png;base64,' + filme.poster}" src="https://img.elo7.com.br/product/zoom/23646C7/big-poster-filme-capita-marvel-tamanho-90x60-cm-presente-geek.jpg" class="img-fluid imagem-addfilme" />
+                    <img th:src="${'data:image/png;base64,' + filme.getPosterBase64()}" src="https://img.elo7.com.br/product/zoom/23646C7/big-poster-filme-capita-marvel-tamanho-90x60-cm-presente-geek.jpg" class="img-fluid imagem-addfilme" />
                 </div>
 
                 <div class="campos-filme form col-5 mt-3">
