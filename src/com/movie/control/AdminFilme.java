@@ -22,6 +22,16 @@ public class AdminFilme {
 	private FilmeDAO filmeDAO = new FilmeDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	
+	/*RequestMapping que mostra a tela de adicionar filme*/
+	@RequestMapping(value = {"/admin/adicionarFilme"})
+	public ModelAndView CadastroFilme() {
+		Filme filme = new Filme();
+		
+		ModelAndView mv = new ModelAndView("Tela adicionar filme", "filme", filme);
+	
+		return mv;
+	}
+	
 	/*RequestMapping que recebe os dados do form*/
 	@RequestMapping(value = {"/admin/addFilme"}, method=RequestMethod.POST)
 	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) throws IOException {
@@ -47,12 +57,12 @@ public class AdminFilme {
 		return mv;
 	}
 	
-	/*RequestMapping que mostra a tela de adicionar/editar filme*/
-	@RequestMapping(value = {"/admin/adicionarFilme"})
-	public ModelAndView CadastroFilme() {
+	/*RequestMapping que mostra a tela de alterar filme*/
+	@RequestMapping(value = {"/admin/alterarFilme"})
+	public ModelAndView AlteracaoFilme() {
 		Filme filme = new Filme();
 		
-		ModelAndView mv = new ModelAndView("Tela adicionar filme", "filme", filme);
+		ModelAndView mv = new ModelAndView("Tela Alterar Filme", "filme", filme);
 	
 		return mv;
 	}
