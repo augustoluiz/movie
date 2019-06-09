@@ -3,11 +3,11 @@ package com.movie.control;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
+import com.movie.dao.SalaDAO;
 import com.movie.dao.exception.DAOException;
-import com.movie.model.Filme;
 import com.movie.model.Programacao;
+import com.movie.model.Sala;
 
 public class ControladoraTeste {
 	
@@ -122,28 +122,27 @@ public class ControladoraTeste {
 //				System.out.println(s.getNome());
 //			}
 		
-			Programacao prog = new Programacao();
+//			Programacao prog = new Programacao();
 			
 //			prog.setId(1);
-			prog.setId_filme(1);
-			prog.setId_sala(1);
-			prog.setAudio("LEG");
-			
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			prog.setExibicao(sdf2.parse("2019-07-26 23:12"));
-			
-			prog.setPreco(23.50);
-			prog.setQualidade("2D");
-			
-			
-			ProgramacaoDAO progDAO = new ProgramacaoDAO();
-			
-			try {
-				progDAO.insereProgramacao(prog);
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			prog.setId_filme(1);
+//			prog.setId_sala(2);
+//			prog.setAudio("LEG");
+//			
+//			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//			prog.setExibicao(sdf2.parse("2019-07-26 23:12"));
+//			
+//			prog.setPreco(23.50);
+//			prog.setQualidade("2D");
+//			
+//			
+//			ProgramacaoDAO progDAO = new ProgramacaoDAO();
+////			
+//			try {
+//				progDAO.insereProgramacao(prog);
+//			} catch (DAOException e) {
+//				e.printStackTrace();
+//			}
 			
 //			if(progDAO.alteraProgramacao(prog)) {
 //				System.out.println("Programação Inserida com sucesso");
@@ -212,6 +211,24 @@ public class ControladoraTeste {
 //			}
 //			
 //			System.out.println("Nome: "+filme.getNome());
+		
+		ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
+		SalaDAO salaDAO = new SalaDAO();
+		Sala sala = new Sala();
+		String erro = "";
+		
+		try {
+			if(programacaoDAO.consultaSalaPorProgramacao(2)) {
+				erro = "Impossível excluir a sala. Ela está associada a programações";
+				System.out.println(erro);
+			} else {
+				salaDAO.removeSala(2);
+				System.out.println("excluiu");
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 	}
 	

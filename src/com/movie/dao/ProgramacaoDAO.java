@@ -112,15 +112,15 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 	@Override
 	public boolean consultaSalaPorProgramacao(long id_sala) throws DAOException {
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
-		int qtd_programacoes = 0;
+		List<Programacao> programacoes = new ArrayList<>();
 		
 		em.getTransaction().begin();
-		TypedQuery<Integer> query = em.createQuery("SELECT COUNT(*) p FROM Programacao p where id_sala like :id_sala", Integer.class);
+		TypedQuery<Programacao> query = em.createQuery("SELECT p FROM Programacao p where id_sala like :id_sala", Programacao.class);
 		query.setParameter("id_sala",id_sala);
-		qtd_programacoes = query.getSingleResult();
+		programacoes = query.getResultList();
 		em.close();
 		
-		if(qtd_programacoes > 0) {
+		if(!programacoes.isEmpty()) {
 			return true;
 		}
 		
