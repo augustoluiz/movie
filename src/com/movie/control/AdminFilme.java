@@ -1,6 +1,7 @@
 package com.movie.control;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -164,16 +165,12 @@ public class AdminFilme {
 		String erro = "";
 		
 		try {
+			programacao.setExibicao(formataData.formataDataYMDHMExibicao(programacao.getData_exibicao(), programacao.getHora_exibicao()));
 			programacaoDAO.insereProgramacao(programacao);
-		} catch (DAOException e) {
+		} catch (ParseException | DAOException e) {
 			e.printStackTrace();
 			erro = "Erro ao adicionar a Programa��o";
 		}
-		
-		//ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
-		//mv.addObject(erro);
-		
-		//return mv;
 		
 		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
 
@@ -186,16 +183,15 @@ public class AdminFilme {
 		String erro = "";
 		
 		try {
+			programacao.setExibicao(formataData.formataDataYMDHMExibicao(programacao.getData_exibicao(), programacao.getHora_exibicao()));
 			programacaoDAO.alteraProgramacao(programacao);
-		} catch (DAOException e) {
+		} catch (ParseException | DAOException e) {
 			e.printStackTrace();
 			erro = "Erro ao alterar a Programa��o";
 		}
+
 		
-		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
 	}
 	
 	@RequestMapping(value = {"/admin/excluiProg"})

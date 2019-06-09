@@ -218,7 +218,8 @@
 					<form action="#" th:action="@{/admin/addProg}" th:object="${prog}" method="POST">
 					<input type="hidden" th:field="*{id_filme}" th:value="*{id_filme}">
 						<div class="row">
-							<b>Data</b> <input type="date" data-date="" data-data-format="DD MMMM YYYY" name="exibicao" th:field="*{exibicao}" class="ml-2 form-control col">
+							<b>Data</b> <input type="date" data-date="" data-data-format="DD MMMM YYYY" name="data_exibicao" th:field="*{data_exibicao}" class="ml-2 form-control col">
+							<b>Horario</b>  <input type="time" data-date="" data-data-format="HH:mm" name="hora_exibicao" th:field="*{hora_exibicao}" class="ml-2 form-control col">
 							 <b>Sala</b> 
                             <select class="form-control ml-2 col" name="id_sala" th:field="*{id_sala}">
                                     <option th:each="s : ${salas}" th:text="${s.nome}" th:value="${s.id}">Livre</option>    

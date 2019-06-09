@@ -1,5 +1,7 @@
 package com.movie.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -26,6 +28,14 @@ public class Programacao {
 	
 	@Transient
 	private String nome_sala;
+	
+	@Transient
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date data_exibicao;
+	
+	@Transient
+	@DateTimeFormat(pattern = "HH:mm")
+	private Date hora_exibicao;
 	
 	public long getId() {
 		return id;
@@ -74,6 +84,19 @@ public class Programacao {
 	}
 	public void setNome_sala(String nome_sala) {
 		this.nome_sala = nome_sala;
+	}
+	
+	public Date getData_exibicao() {
+		return data_exibicao;
+	}
+	public void setData_exibicao(Date data_exibicao) {
+		this.data_exibicao = data_exibicao;
+	}
+	public Date getHora_exibicao() {
+		return hora_exibicao;
+	}
+	public void setHora_exibicao(Date hora_exibicao) {
+		this.hora_exibicao = hora_exibicao;
 	}
 	
 }

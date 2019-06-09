@@ -29,6 +29,7 @@ public class AdminListaFilmeESala {
 	
 	private FormataData formataData = new FormataData();
 	
+	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
 	@RequestMapping(value = {"/adminFilme"}, method=RequestMethod.POST)
 	public ModelAndView Filme(@ModelAttribute("usuario") Usuario usuario) {
@@ -37,7 +38,6 @@ public class AdminListaFilmeESala {
 		List<Sala> salas = new ArrayList<>();
 		Date data_atual = new Date();
 		String erro = "";
-	
 		
 		try {
 			if(usuarioDAO.confereUsuario(usuario.getLogin(), usuario.getSenha())) {
@@ -83,7 +83,6 @@ public class AdminListaFilmeESala {
 		} catch (Exception e) {
 			erro = "Erro ao consultar o filme";
 		}
-		
 		
 		for(Filme f : filmes) {
 			try {
