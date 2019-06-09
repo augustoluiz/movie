@@ -1,9 +1,13 @@
 package com.movie.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
+import com.movie.dao.SalaDAO;
 import com.movie.dao.exception.DAOException;
 import com.movie.model.Filme;
 import com.movie.model.Programacao;
@@ -21,6 +26,8 @@ public class AdminFilme {
 	
 	private FilmeDAO filmeDAO = new FilmeDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
+	private SalaDAO salaDAO = new SalaDAO();
+	private FormataData formataData = new FormataData();
 	
 	/*RequestMapping que mostra a tela de adicionar filme*/
 	@RequestMapping(value = {"/admin/adicionarFilme"})
@@ -58,13 +65,38 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que mostra a tela de alterar filme*/
-	@RequestMapping(value = {"/admin/alterarFilme"})
-	public ModelAndView AlteracaoFilme() {
+	@RequestMapping(value="/admin/alteracaoFilme/{id}")
+	public ModelAndView AlteracaoFilme(@PathVariable Long id) {
+		
 		Filme filme = new Filme();
+		List<Programacao> programacoes = new ArrayList<>();
+		
+		String erro = "";
+		Date data_atual = new Date();
+		
+		try {
+			filme = filmeDAO.consultaFilme(id);
+			programacoes = programacaoDAO.consultaProximasProgramacoes(filme.getId(), formataData.formataDataYMDHM(data_atual));
+			filme.setAudio(new ProgramacaoDAO().consultaAudioPorFilme(filme.getId(), formataData.formataDataYMDHM(data_atual)));
+			filme.setQualidade(new ProgramacaoDAO().consultaQualidadePorFilme(filme.getId(), formataData.formataDataYMDHM(data_atual)));
+			
+			/*Atribui o nome da sala por programacao e insere datas na lista de dias(key do hash)*/
+			for(Programacao p : programacoes) {
+				p.setNome_sala(salaDAO.consultaSalaPorId(p.getId_sala()));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			erro = "Ocorreu um erro inesperado, por favor contate um administrador";
+		}
+		
 		
 		ModelAndView mv = new ModelAndView("Tela Alterar Filme", "filme", filme);
-	
+		mv.addObject("programacoes", programacoes);
+		mv.addObject("erro", erro);
+				
 		return mv;
+		
 	}
 	
 	/*RequestMapping que altera o filme cadastrado*/
