@@ -9,7 +9,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<!-- O movie é o nome do banco -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/movie" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/movie"/>
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<!-- Para rodar nos computadores da Fatec é necessário colocar a senha "alunofatec" -->
 			<property name="javax.persistence.jdbc.password" value="" />

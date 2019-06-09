@@ -22,31 +22,32 @@ public class AdminFilme {
 	private FilmeDAO filmeDAO = new FilmeDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	
+	/*RequestMapping que recebe os dados do form*/
 	@RequestMapping(value = {"/admin/addFilme"}, method=RequestMethod.POST)
 	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) throws IOException {
 		
+		String trailer;
 		String erro = "";
-		System.out.println(files.getBytes());
-		System.out.println(files.getSize());
-		
+	
 		try {
-			System.out.println(filme.getNome());
-			System.out.println(filme.getEstreia());
-			System.out.println(filme.getDistribuidora());
 			filme.setPoster(files.getBytes());
-			System.out.println(filme.getPosterBase64());
+			if(!filme.getTrailer().isEmpty()) {
+				trailer = filme.getTrailer().substring(0, 24) +"embed/"+ filme.getTrailer().substring(32, filme.getTrailer().length());
+				filme.setTrailer(trailer);
+			}
 			filmeDAO.insereFilme(filme);
 		} catch (IOException | DAOException e ) {
 			e.printStackTrace();
 			erro = "Erro ao adicionar o Filme";
 		}
 		
-		ModelAndView mv = new ModelAndView("filme", "filme", filme);
+		ModelAndView mv = new ModelAndView("Tela adicionar filme", "filme", filme);
 		mv.addObject(erro);
 		
 		return mv;
 	}
 	
+	/*RequestMapping que mostra a tela de adicionar/editar filme*/
 	@RequestMapping(value = {"/admin/adicionarFilme"})
 	public ModelAndView CadastroFilme() {
 		Filme filme = new Filme();
@@ -56,15 +57,21 @@ public class AdminFilme {
 		return mv;
 	}
 	
-	@RequestMapping(value = {"/admin/alteraFilme"})
-	public ModelAndView alteraFilme(
-				@ModelAttribute("filme") Filme filme) {
+	/*RequestMapping que altera o filme cadastrado*/
+	@RequestMapping(value = {"/admin/alteraFilme"}, method=RequestMethod.POST)
+	public ModelAndView alteraFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) {
 		
+		String trailer;
 		String erro = "";
 		
 		try {
+			filme.setPoster(files.getBytes());
+			if(!filme.getTrailer().isEmpty()) {
+				trailer = filme.getTrailer().substring(0, 24) +"embed/"+ filme.getTrailer().substring(32, filme.getTrailer().length());
+				filme.setTrailer(trailer);
+			}
 			filmeDAO.alteraFilme(filme);
-		} catch (DAOException e) {
+		} catch (IOException | DAOException e) {
 			e.printStackTrace();
 			erro = "Erro ao alterar o filme";
 		}
@@ -75,6 +82,7 @@ public class AdminFilme {
 		return mv;
 	}
 	
+	/*RequestMapping que exclui o registro do banco*/
 	@RequestMapping(value = {"/admin/excluiFilme"})
 	public ModelAndView excluiFilme(
 				@ModelAttribute("filme") Filme filme) {
@@ -83,7 +91,7 @@ public class AdminFilme {
 		
 		try {
 			if(programacaoDAO.consultaFilmePorProgramacao(filme.getId())) {
-				erro = "Impossï¿½vel excluir o filme. Ele estï¿½ associada a programaï¿½ï¿½es";
+				erro = "Impossivel excluir o filme. Ele esta associado a programaçoes";
 			} else {
 				filmeDAO.removeFilme(filme.getId());
 			}
