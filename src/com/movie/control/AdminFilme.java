@@ -196,14 +196,17 @@ public class AdminFilme {
 		
 		String erro = "";
 		
+		long id = 0;
+		
 		try {
+			id = programacaoDAO.consultaIdFilme(programacao.getId());
 			programacaoDAO.removeProgramacao(programacao.getId());
 		} catch (DAOException e) {
 			e.printStackTrace();
 			erro = "Erro ao excluir a Programa��o";
 		}
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+id).addObject(erro);
 
 	}
 }

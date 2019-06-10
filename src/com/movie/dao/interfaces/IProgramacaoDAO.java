@@ -17,5 +17,6 @@ public interface IProgramacaoDAO {
 	List<String> consultaAudioPorFilme(long id_filme, Date data_atual) throws DAOException;
 	boolean consultaSalaPorProgramacao(long id_sala) throws DAOException;
 	boolean consultaFilmePorProgramacao(long id_filme) throws DAOException;
+	long consultaIdFilme(long id) throws DAOException;
 	
 }

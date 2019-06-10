@@ -144,5 +144,20 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 		
 		return false;
 	}
+
+	/*Retorna o id_filme com base no id da programacao*/
+	@Override
+	public long consultaIdFilme(long id) throws DAOException {
+		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
+		List<Programacao> programacoes = new ArrayList<>();
+		
+		em.getTransaction().begin();
+		TypedQuery<Programacao> query = em.createQuery("SELECT p FROM Programacao p where id like :id", Programacao.class);
+		query.setParameter("id",id);
+		programacoes = query.getResultList();
+		em.close();
+		
+		return programacoes.get(0).getId_filme();
+	}
 	
 }
