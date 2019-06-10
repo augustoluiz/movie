@@ -115,9 +115,19 @@ public class AdminFilme {
 		
 		String trailer;
 		String erro = "";
+		Filme temp = new Filme();
 		
 		try {
+			System.out.println(files.getBytes());
+			System.out.println("lENGTH "+files.getBytes().length);
+
 			filme.setPoster(files.getBytes());
+			if(filme.getPoster() == null || filme.getPoster().length < 1) {
+				temp = filmeDAO.consultaFilme(filme.getId());
+				filme.setPoster(temp.getPoster());
+			}
+
+
 			if(!filme.getTrailer().isEmpty() && !filme.getTrailer().contains("embed/")) {
 				trailer = filme.getTrailer().substring(0, 24) +"embed/"+ filme.getTrailer().substring(32, filme.getTrailer().length());
 				filme.setTrailer(trailer);
