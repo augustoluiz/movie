@@ -62,16 +62,18 @@
 	</nav>
 
 	<div class="container col-12 mt-3">
-		<form action="#" method="POST" th:action="@{'/admin/alteraFilme/' + ${filme.id}}"
+		<form action="#" method="POST"
+			th:action="@{'/admin/alteraFilme/' + ${filme.id}}"
 			th:object="${filme}" enctype="multipart/form-data">
 
 			<div class="formfilme col-11 mx-auto mt-auto mb-5">
 
 				<div class="row">
 					<div class="foto col-2 mt-3 text-center">
-						<!--<img src="c.jpg" class="img-fluid imagem-addfilme"/> -->
-
-						<input type="hidden" th:field="*{id}" th:value="*{id}"> <label
+						<img
+							th:src="${'data:image/png;base64,' + filme.getPosterBase64()}"
+							id="poster" class="img-fluid imagem-addfilme" /> <input
+							type="hidden" th:field="*{id}" th:value="*{id}"> <label
 							for="file-upload" class="custom-file-upload bg-p c-p col-12">
 							<center>
 								<b>Alterar Foto</b>
@@ -162,26 +164,37 @@
 							</tr>
 						</thead>
 						<tbody>
-						<span th:if="!${#lists.isEmpty(programacoes)}">
-							<tr th:each="p : ${programacoes}">
-								<td class="align-middle" th:text="${#dates.format(p.exibicao, 'dd/MM/yyyy')}">Data</th>
-								<td class="align-middle" th:text="${p.nome_sala}">Sala</th>
-								<td class="align-middle" th:text="${#dates.format(p.exibicao, 'HH:mm')}">Horário</th>
-								<td class="align-middle" th:text="${p.audio}">áudio</th>
-								<td class="align-middle" th:text="${p.qualidade}">Qualidade</th>
-								<td class="align-middle" th:text="${#numbers.formatCurrency(p.preco)}">Valor</th>
-								<td>
-									<button type="button" data-toggle="modal" th:data-target="${'#prog' + p.id}" class="editar btn"></button>					
-									<a th:href="@{'/admin/excluiProg/' + ${p.id}}"><button type="button" class="fechar btn"></button></a>
-								</td>
-								
-								<!-- <td><input class="form-check-input mt-auto mb-auto" type="radio" name="id" th:id="${p.id}" th:value="${p.id}"></td>  -->
-							</tr>
-						</span>
+							<span th:if="!${#lists.isEmpty(programacoes)}">
+								<tr th:each="p : ${programacoes}">
+									<td class="align-middle"
+										th:text="${#dates.format(p.exibicao, 'dd/MM/yyyy')}">Data
+									</th>
+									<td class="align-middle" th:text="${p.nome_sala}">Sala
+									</th>
+									<td class="align-middle"
+										th:text="${#dates.format(p.exibicao, 'HH:mm')}">Horário
+									</th>
+									<td class="align-middle" th:text="${p.audio}">áudio
+									</th>
+									<td class="align-middle" th:text="${p.qualidade}">Qualidade
+									</th>
+									<td class="align-middle"
+										th:text="${#numbers.formatCurrency(p.preco)}">Valor
+									</th>
+									<td>
+										<button type="button" data-toggle="modal"
+											th:data-target="${'#prog' + p.id}" class="editar btn"></button>
+										<a th:href="@{'/admin/excluiProg/' + ${p.id}}"><button
+												type="button" class="fechar btn"></button></a>
+									</td>
+
+									<!-- <td><input class="form-check-input mt-auto mb-auto" type="radio" name="id" th:id="${p.id}" th:value="${p.id}"></td>  -->
+								</tr>
+							</span>
 						</tbody>
 					</table>
-					
-					
+
+
 					<div class="col-12 text-right">
 						<!-- <button type="button" class="btn col-1 mb-3 controles bg-p c-p">
 							<b>Excluir</b>
@@ -189,7 +202,9 @@
 						<button type="button" class="btn col-1 mb-3 controles bg-p c-p">
 							<b>Editar</b>
 						</button> -->
-						<button type="button" data-toggle="modal" data-target="#modalFilme" class="btn col-2 mb-3 controles bg-p c-p">
+						<button type="button" data-toggle="modal"
+							data-target="#modalFilme"
+							class="btn col-2 mb-3 controles bg-p c-p">
 							<b>Adicionar</b>
 						</button>
 					</div>
@@ -207,10 +222,10 @@
 	</div>
 
 	<!-- Modal Adicionar Programação-->
-	<div class="modal fade" id="modalFilme" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+	<div class="modal fade" id="modalFilme" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-xl"
+			role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalCenterTitle">
@@ -223,91 +238,106 @@
 				</div>
 				<div class="modal-body col-12 px-5 pt-4">
 					<p class="col mt-auto mb-auto">
-					<form action="#" th:action="@{/admin/addProg}" th:object="${prog}" method="POST">
-					<input type="hidden" th:field="*{id_filme}" th:value="*{id_filme}">
+					<form action="#" th:action="@{/admin/addProg}" th:object="${prog}"
+						method="POST">
+						<input type="hidden" th:field="*{id_filme}" th:value="*{id_filme}">
 						<div class="row">
-							<b>Data</b> <input type="date" data-date="" data-data-format="DD MMMM YYYY" name="data_exibicao" th:field="*{data_exibicao}" class="ml-2 form-control col">
-							<b>Horario</b>  <input type="time" data-date="" data-data-format="HH:mm" name="hora_exibicao" th:field="*{hora_exibicao}" class="ml-2 form-control col">
-							 <b>Sala</b> 
-                            <select class="form-control ml-2 col" name="id_sala" th:field="*{id_sala}">
-                                    <option th:each="s : ${salas}" th:text="${s.nome}" th:value="${s.id}">Livre</option>    
-                            </select> 
+							<b>Data</b> <input type="date" data-date=""
+								data-data-format="DD MMMM YYYY" name="data_exibicao"
+								th:field="*{data_exibicao}" class="ml-2 form-control col">
+							<b>Horario</b> <input type="time" data-date=""
+								data-data-format="HH:mm" name="hora_exibicao"
+								th:field="*{hora_exibicao}" class="ml-2 form-control col">
+							<b>Sala</b> <select class="form-control ml-2 col" name="id_sala"
+								th:field="*{id_sala}">
+								<option th:each="s : ${salas}" th:text="${s.nome}"
+									th:value="${s.id}">Livre</option>
+							</select>
 						</div>
-						<br/>
+						<br />
 						<div class="row">
-							 <b>Preço </b> <input type="text" name="preco" th:field="*{preco}" class="ml-2 form-control col">
-							 <b>Audio</b> 
-							 <select class="form-control ml-2 col" th:field="*{audio}" name="audio">
-                                    <option th:value="${'DUB'}">Dublado</option>
-                                    <option th:value="${'LEG'}">Legendado</option>
-                            </select> 
-                            <b>Qualidade</b> 
-							 <select class="form-control ml-2 col" name="qualidade" th:field="*{qualidade}" >
-                                    <option th:value="${'2D'}">2D</option>
-                                    <option th:value="${'3D'}">3D</option>
-                            </select> 
+							<b>Preço </b> <input type="text" name="preco" th:field="*{preco}"
+								class="ml-2 form-control col"> <b>Audio</b> <select
+								class="form-control ml-2 col" th:field="*{audio}" name="audio">
+								<option th:value="${'DUB'}">Dublado</option>
+								<option th:value="${'LEG'}">Legendado</option>
+							</select> <b>Qualidade</b> <select class="form-control ml-2 col"
+								name="qualidade" th:field="*{qualidade}">
+								<option th:value="${'2D'}">2D</option>
+								<option th:value="${'3D'}">3D</option>
+							</select>
 						</div>
-					</p>
+						</p>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary bg-p c-p">Adicionar Programação</button>
+					<button type="submit" class="btn btn-primary bg-p c-p">Adicionar
+						Programação</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-		<!-- Modal Alterar Programação-->
-		<span th:each="pfe : ${programacoes}">
-	<div class="modal fade" id="modalFilme" th:id="${'prog' + pfe.id}" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-			<div class="modal-content">
-			<form action="#" th:action="@{'/admin/alteraProg/' + ${pfe.id}}" th:object="${prog}">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalCenterTitle">
-						<b class="c-s">Adicionar Programação</b>
-					</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body col-12 px-5 pt-4">
-					<p class="col mt-auto mb-auto">
-					<input type="hidden" th:field="*{id_filme}" th:value="*{id_filme}">
-						<div class="row">
-							<b>Data</b> <input type="date" data-date="" data-data-format="DD MMMM YYYY" name="data_exibicao" th:field="*{data_exibicao}" class="ml-2 form-control col">
-							<b>Horario</b>  <input type="time" data-date="" data-data-format="HH:mm" name="hora_exibicao" th:field="*{hora_exibicao}" class="ml-2 form-control col">
-							 <b>Sala</b> 
-                            <select class="form-control ml-2 col" name="id_sala" th:field="*{id_sala}">
-                                    <option th:each="s : ${salas}" th:text="${s.nome}" th:value="${s.id}">Livre</option>    
-                            </select> 
+
+	<!-- Modal Alterar Programação-->
+	<span th:each="pfe : ${programacoes}" th:remove="tag">
+		<div class="modal fade" id="modalFilme" th:id="${'prog' + pfe.id}"
+			tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-xl"
+				role="document">
+				<div class="modal-content">
+					<form action="#" th:action="@{'/admin/alteraProg/' + ${pfe.id}}"
+						th:object="${prog}">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">
+								<b class="c-s">Adicionar Programação</b>
+							</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-						<br/>
-						<div class="row">
-							 <b>Preço </b> <input type="text" name="preco" th:field="*{preco}" class="ml-2 form-control col">
-							 <b>Audio</b> 
-							 <select class="form-control ml-2 col" th:field="*{audio}" name="audio">
-                                    <option th:value="${'DUB'}">Dublado</option>
-                                    <option th:value="${'LEG'}">Legendado</option>
-                            </select> 
-                            <b>Qualidade</b> 
-							 <select class="form-control ml-2 col" name="qualidade" th:field="*{qualidade}" >
-                                    <option th:value="${'2D'}">2D</option>
-                                    <option th:value="${'3D'}">3D</option>
-                            </select> 
+						<div class="modal-body col-12 px-5 pt-4">
+							<p class="col mt-auto mb-auto">
+								<input type="hidden" th:field="*{id_filme}"
+									th:value="*{id_filme}">
+							<div class="row">
+								<b>Data</b> <input type="date" data-date=""
+									data-data-format="DD MMMM YYYY" name="data_exibicao"
+									th:field="*{data_exibicao}" class="ml-2 form-control col">
+								<b>Horario</b> <input type="time" data-date=""
+									data-data-format="HH:mm" name="hora_exibicao"
+									th:field="*{hora_exibicao}" class="ml-2 form-control col">
+								<b>Sala</b> <select class="form-control ml-2 col" name="id_sala"
+									th:field="*{id_sala}">
+									<option th:each="s : ${salas}" th:text="${s.nome}"
+										th:value="${s.id}">Livre</option>
+								</select>
+							</div>
+							<br />
+							<div class="row">
+								<b>Preço </b> <input type="text" name="preco"
+									th:field="*{preco}" class="ml-2 form-control col"> <b>Audio</b>
+								<select class="form-control ml-2 col" th:field="*{audio}"
+									name="audio">
+									<option th:value="${'DUB'}">Dublado</option>
+									<option th:value="${'LEG'}">Legendado</option>
+								</select> <b>Qualidade</b> <select class="form-control ml-2 col"
+									name="qualidade" th:field="*{qualidade}">
+									<option th:value="${'2D'}">2D</option>
+									<option th:value="${'3D'}">3D</option>
+								</select>
+							</div>
+							</p>
 						</div>
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary bg-p c-p">Alterar Programação</button>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary bg-p c-p">Alterar
+								Programação</button>
 					</form>
 				</div>
 			</div>
 		</div>
-		</span>
-	</div>
-	
+	</span>
+
 
 
 
@@ -325,6 +355,33 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+
+
+
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#poster').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#file-upload").change(function() {
+			readURL(this);
+		});
+	</script>
+
+
+
+
+
+
+
 </body>
 
 </html>
