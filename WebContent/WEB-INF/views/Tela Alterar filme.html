@@ -162,6 +162,7 @@
 							</tr>
 						</thead>
 						<tbody>
+						<span th:if="!${#lists.isEmpty(programacoes)}">
 							<tr th:each="p : ${programacoes}">
 								<td class="align-middle" th:text="${#dates.format(p.exibicao, 'dd/MM/yyyy')}">Data</th>
 								<td class="align-middle" th:text="${p.nome_sala}">Sala</th>
@@ -176,6 +177,7 @@
 								
 								<!-- <td><input class="form-check-input mt-auto mb-auto" type="radio" name="id" th:id="${p.id}" th:value="${p.id}"></td>  -->
 							</tr>
+						</span>
 						</tbody>
 					</table>
 					
@@ -303,6 +305,7 @@
 				</div>
 			</div>
 		</div>
+		</span>
 	</div>
 	
 
