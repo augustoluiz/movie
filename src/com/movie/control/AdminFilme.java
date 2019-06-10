@@ -50,7 +50,7 @@ public class AdminFilme {
 	
 		try {
 			filme.setPoster(files.getBytes());
-			if(!filme.getTrailer().isEmpty()) {
+			if(!filme.getTrailer().isEmpty() && !filme.getTrailer().contains("embed/")) {
 				trailer = filme.getTrailer().substring(0, 24) +"embed/"+ filme.getTrailer().substring(32, filme.getTrailer().length());
 				filme.setTrailer(trailer);
 			}
@@ -118,7 +118,7 @@ public class AdminFilme {
 		
 		try {
 			filme.setPoster(files.getBytes());
-			if(!filme.getTrailer().isEmpty()) {
+			if(!filme.getTrailer().isEmpty() && !filme.getTrailer().contains("embed/")) {
 				trailer = filme.getTrailer().substring(0, 24) +"embed/"+ filme.getTrailer().substring(32, filme.getTrailer().length());
 				filme.setTrailer(trailer);
 			}
