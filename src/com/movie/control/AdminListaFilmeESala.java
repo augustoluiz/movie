@@ -31,12 +31,13 @@ public class AdminListaFilmeESala {
 	
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
-	@RequestMapping(value = {"/adminFilme"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/adminFilme"})
 	public ModelAndView Filme(@ModelAttribute("usuario") Usuario usuario) {
 		
 		List<Filme> filmes = new ArrayList<>();
 		List<Sala> salas = new ArrayList<>();
 		Date data_atual = new Date();
+		Sala sala = new Sala();
 		String erro = "";
 		
 		try {
@@ -66,6 +67,7 @@ public class AdminListaFilmeESala {
 		ModelAndView mv = new ModelAndView("Tela Filmes e Salas Administrador");
 		mv.addObject("filmes", filmes);
 		mv.addObject("salas", salas);
+		mv.addObject("sala", sala);
 		mv.addObject("erro", erro);
 		
 		return mv;

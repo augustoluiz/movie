@@ -3,6 +3,7 @@ package com.movie.control;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.ProgramacaoDAO;
@@ -29,13 +30,11 @@ public class AdminSalas {
 			erro = "Erro ao adicionar a sala";
 		}
 		
-		ModelAndView mv = new ModelAndView("sala", "sala", sala);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/adminFilme");
+
 	}
 	
-	@RequestMapping(value = {"/admin/alteraSala"})
+	@RequestMapping(value = {"/admin/alteraSala/{id}"})
 	public ModelAndView alteraSala(
 				@ModelAttribute("sala") Sala sala) {
 		
@@ -48,13 +47,11 @@ public class AdminSalas {
 			erro = "Erro ao alterar a sala";
 		}
 		
-		ModelAndView mv = new ModelAndView("sala", "sala", sala);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/adminFilme");
+
 	}
 	
-	@RequestMapping(value = {"/admin/excluiSala"})
+	@RequestMapping(value = {"/admin/excluiSala/{id}"})
 	public ModelAndView excluiSala(
 				@ModelAttribute("sala") Sala sala) {
 		
@@ -71,10 +68,8 @@ public class AdminSalas {
 			erro = "Erro ao excluir a sala";
 		}
 		
-		ModelAndView mv = new ModelAndView("sala", "sala", sala);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/adminFilme");
+
 	}
 	
 }

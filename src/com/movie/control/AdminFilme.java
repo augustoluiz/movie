@@ -110,7 +110,7 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que altera o filme cadastrado*/
-	@RequestMapping(value = {"/admin/alteraFilme"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/admin/alteraFilme/{id}"}, method=RequestMethod.POST)
 	public ModelAndView alteraFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) {
 		
 		String trailer;
@@ -128,19 +128,17 @@ public class AdminFilme {
 			erro = "Erro ao alterar o filme";
 		}
 		
-		ModelAndView mv = new ModelAndView("filme", "filme", filme);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/adminFilme");
+
 	}
 	
 	/*RequestMapping que exclui o registro do banco*/
-	@RequestMapping(value = {"/admin/excluiFilme"})
+	@RequestMapping(value = {"/admin/excluirFilme/{id}"})
 	public ModelAndView excluiFilme(
 				@ModelAttribute("filme") Filme filme) {
 		
 		String erro = "";
-		
+		System.out.println(filme.getId());
 		try {
 			if(programacaoDAO.consultaFilmePorProgramacao(filme.getId())) {
 				erro = "Impossivel excluir o filme. Ele esta associado a programaçoes";
@@ -152,10 +150,8 @@ public class AdminFilme {
 			erro = "Erro ao excluir o filme";
 		}
 		
-		ModelAndView mv = new ModelAndView("filme", "filme", filme);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/adminFilme");
+
 	}
 	
 	@RequestMapping(value = {"/admin/addProg"}, method=RequestMethod.POST)
@@ -176,7 +172,7 @@ public class AdminFilme {
 
 	}
 	
-	@RequestMapping(value = {"/admin/alteraProg"})
+	@RequestMapping(value = {"/admin/alteraProg/{id}"})
 	public ModelAndView alteraProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -194,7 +190,7 @@ public class AdminFilme {
 		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
 	}
 	
-	@RequestMapping(value = {"/admin/excluiProg"})
+	@RequestMapping(value = {"/admin/excluiProg/{id}"})
 	public ModelAndView excluiProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -207,9 +203,7 @@ public class AdminFilme {
 			erro = "Erro ao excluir a Programaï¿½ï¿½o";
 		}
 		
-		ModelAndView mv = new ModelAndView("programacao", "programacao", programacao);
-		mv.addObject(erro);
-		
-		return mv;
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
+
 	}
 }

@@ -130,10 +130,10 @@ public class ProgramacaoDAO implements IProgramacaoDAO{
 	@Override
 	public boolean consultaFilmePorProgramacao(long id_filme) throws DAOException {
 		EntityManager em = ConnectionBuilderORM.getInstance().getConnection();
-		int qtd_programacoes = 0;
+		Long qtd_programacoes = 0l;
 		
 		em.getTransaction().begin();
-		TypedQuery<Integer> query = em.createQuery("SELECT COUNT(*) p FROM Programacao p where id_filme like :id_filme", Integer.class);
+		TypedQuery<Long> query = em.createQuery("SELECT COUNT(p) FROM Programacao p where id_filme like :id_filme", Long.class);
 		query.setParameter("id_filme",id_filme);
 		qtd_programacoes = query.getSingleResult();
 		em.close();
