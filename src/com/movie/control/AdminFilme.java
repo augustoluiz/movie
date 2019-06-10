@@ -138,7 +138,7 @@ public class AdminFilme {
 				@ModelAttribute("filme") Filme filme) {
 		
 		String erro = "";
-		System.out.println(filme.getId());
+		
 		try {
 			if(programacaoDAO.consultaFilmePorProgramacao(filme.getId())) {
 				erro = "Impossivel excluir o filme. Ele esta associado a programaçoes";

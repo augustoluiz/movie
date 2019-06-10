@@ -32,7 +32,7 @@ public class AdminListaFilmeESala {
 	
 	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
 	@RequestMapping(value = {"/adminFilme"})
-	public ModelAndView Filme(@ModelAttribute("usuario") Usuario usuario) {
+	public ModelAndView Filme() {
 		
 		List<Filme> filmes = new ArrayList<>();
 		List<Sala> salas = new ArrayList<>();
@@ -41,7 +41,6 @@ public class AdminListaFilmeESala {
 		String erro = "";
 		
 		try {
-			if(usuarioDAO.confereUsuario(usuario.getLogin(), usuario.getSenha())) {
 				filmes = filmeDAO.listaFilmesCadastrados();
 				salas = salaDAO.consultaSalas();
 				
@@ -53,15 +52,8 @@ public class AdminListaFilmeESala {
 						erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 					}
 				}
-			} else {
-				ModelAndView mv = new ModelAndView("Tela Login", "usuario", usuario);
-				return mv;
-			}
 		} catch (Exception e) {
 			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
-			ModelAndView mv = new ModelAndView("Tela Login", "usuario", usuario);
-			mv.addObject(erro);
-			return mv;
 		}
 		
 		ModelAndView mv = new ModelAndView("Tela Filmes e Salas Administrador");

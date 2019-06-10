@@ -3,13 +3,13 @@ package com.movie.control;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.dao.ProgramacaoDAO;
 import com.movie.dao.SalaDAO;
 import com.movie.dao.exception.DAOException;
 import com.movie.model.Sala;
+import com.movie.model.Usuario;
 
 @Controller
 public class AdminSalas {

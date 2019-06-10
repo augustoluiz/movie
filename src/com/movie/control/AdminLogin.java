@@ -37,4 +37,16 @@ public class AdminLogin {
 		return mv;
 	}
 	
+	/*Retorna os filmes em exibição(data de estreia menor que a data atual)*/
+	@RequestMapping(value = {"/homeAdmin"})
+	public ModelAndView Filme(@ModelAttribute("usuario") Usuario usuario) {
+		
+		if(usuarioDAO.confereUsuario(usuario.getLogin(), usuario.getSenha())) {
+			return new ModelAndView("redirect:/adminFilme");
+		} else {
+			return new ModelAndView("redirect:/login");
+		}
+	
+	}
+	
 }
