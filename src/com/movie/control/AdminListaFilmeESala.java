@@ -88,7 +88,7 @@ public class AdminListaFilmeESala {
 		}
 		
 		
-		ModelAndView mv = new ModelAndView("buscaFilme", "filmes", filmes);
+		ModelAndView mv = new ModelAndView("Tela Filmes Pesquisa Admin", "filmes", filmes);
 		mv.addObject("erro", erro);
 				
 		return mv;

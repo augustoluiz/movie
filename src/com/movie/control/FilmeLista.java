@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.movie.dao.FilmeDAO;
 import com.movie.dao.ProgramacaoDAO;
 import com.movie.model.Filme;
+import com.movie.model.Programacao;
 
 @Controller
 public class FilmeLista {
@@ -25,12 +26,21 @@ public class FilmeLista {
 	public ModelAndView Filme() {
 		List<Filme> cartaz = new ArrayList<>();
 		List<Filme> breve = new ArrayList<>();
+		List<Filme> remove_filme = new ArrayList<>();
+		List<Programacao> prox_prog = new ArrayList<>();
 		Date data_atual = new Date();
 		String erro = "";
 		
 		
 		try {
 			cartaz = filmeDAO.listaFilmesEmCartaz(formataData.formataDataYMDHM(data_atual));
+			for(Filme c : cartaz) {
+				prox_prog = programacaoDAO.consultaProximasProgramacoes(c.getId(), data_atual);
+				if(prox_prog.isEmpty()) {
+					remove_filme.add(c);
+				}
+			}
+	    	cartaz.removeAll(remove_filme);
 		} catch (Exception e) {
 			erro = "Ocorreu um erro inepserado, por favor contate o administrador";
 		}
