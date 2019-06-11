@@ -34,7 +34,7 @@
     				<span class="navbar-toggler-icon"></span>
   				</button>
 			  
-			<a href="#" class="mr-3"><img src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
+			<a href="#" class="mr-3"><img class="logo" src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
 			
 		
 			
@@ -43,16 +43,16 @@
         <div class="container text-center">
             <h1 style="color: gray">Área do Administrador</h1><br/>
             <form class="form login" action="#" method="POST" th:action="@{/homeAdmin}" th:object="${usuario}">
-                <img src="logoGrande.jpg" class="LogoLogin"><br/><br/>
+                <img src="http://movieresources.000webhostapp.com/img/logo2.png" class="LogoLogin"><br/><br/>
                 
                 <div class="col align-self-center">
                     <label for="login" class="col-sm-2 text-center" style="font-size: 20px"><b>LOGIN</b></label>
-                    <input type="text" class="col-sm-8 login-input" id="login" th:field="*{login}" th:value="*{login}"> >
+                    <input type="text" class="col-sm-8 login-input" id="login" th:field="*{login}" th:value="*{login}">
                 </div><br/>
                 
                 <div class="col align-self-center">
                     <label for="senha" class="col-sm-2 text-center" style="font-size: 20px"><b>SENHA</b></label>
-                    <input type="password" class="col-sm-8 login-input" id="senha" th:field="*{senha}" th:value="*{senha}">>
+                    <input type="password" class="col-sm-8 login-input" id="senha" th:field="*{senha}" th:value="*{senha}">
                 </div><br/>
                 
                 <div class="col align-self-center ml-2">

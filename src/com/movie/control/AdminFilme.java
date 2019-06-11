@@ -138,7 +138,7 @@ public class AdminFilme {
 			erro = "Erro ao alterar o filme";
 		}
 		
-		return new ModelAndView("redirect:/adminFilme");
+		return new ModelAndView("redirect:/adminFilme").addObject("erro",erro);
 
 	}
 	
@@ -160,7 +160,7 @@ public class AdminFilme {
 			erro = "Erro ao excluir o filme";
 		}
 		
-		return new ModelAndView("redirect:/adminFilme");
+		return new ModelAndView("redirect:/adminFilme").addObject("erro",erro);
 
 	}
 	
@@ -178,7 +178,7 @@ public class AdminFilme {
 			erro = "Erro ao adicionar a Programa��o";
 		}
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
 
 	}
 	
@@ -197,7 +197,7 @@ public class AdminFilme {
 		}
 
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme());
+		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
 	}
 	
 	@RequestMapping(value = {"/admin/excluiProg/{id}"})

@@ -30,7 +30,7 @@ public class AdminSalas {
 			erro = "Erro ao adicionar a sala";
 		}
 		
-		return new ModelAndView("redirect:/adminFilme");
+		return new ModelAndView("redirect:/adminFilme").addObject("erro",erro);
 
 	}
 	
@@ -47,7 +47,7 @@ public class AdminSalas {
 			erro = "Erro ao alterar a sala";
 		}
 		
-		return new ModelAndView("redirect:/adminFilme");
+		return new ModelAndView("redirect:/adminFilme").addObject("erro",erro);
 
 	}
 	
@@ -68,7 +68,7 @@ public class AdminSalas {
 			erro = "Erro ao excluir a sala";
 		}
 		
-		return new ModelAndView("redirect:/adminFilme");
+		return new ModelAndView("redirect:/adminFilme").addObject("erro",erro);
 
 	}
 	
