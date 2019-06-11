@@ -1,5 +1,6 @@
 package com.movie.model;
 
+import java.io.Serializable;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +15,12 @@ import javax.persistence.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Filme {
+public class Filme implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;

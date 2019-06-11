@@ -9,7 +9,6 @@ import com.movie.dao.ProgramacaoDAO;
 import com.movie.dao.SalaDAO;
 import com.movie.dao.exception.DAOException;
 import com.movie.model.Sala;
-import com.movie.model.Usuario;
 
 @Controller
 public class AdminSalas {

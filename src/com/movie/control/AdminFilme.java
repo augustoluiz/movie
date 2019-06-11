@@ -60,6 +60,7 @@ public class AdminFilme {
 			erro = "Erro ao adicionar o Filme";
 		}
 		
+		filme = new Filme();
 		ModelAndView mv = new ModelAndView("Tela adicionar filme", "filme", filme);
 		mv.addObject(erro);
 		
