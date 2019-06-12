@@ -44,7 +44,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
-				<form class="form-inline">
+				<form class="form-inline" onsubmit="return pesquisar()">
 					<input type="text"
 						class="form-control barraPesquisa col-11 col-md-11" id="pesquisa"
 						placeholder="Pesquisar Filmes..." /> <img
@@ -62,12 +62,14 @@
 	</nav>
 	</nav>
 
-		<div th:if="${erro != null && erro != ''}" class="alert alert-danger alert-dismissible fade show"role="alert">
-			<strong th:text="${erro}">Erro</strong>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+	<div th:if="${erro != null && erro != ''}"
+		class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong th:text="${erro}">Erro</strong>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
 
 	<div class="container col-12 mt-3">
@@ -254,6 +256,17 @@
 			</div>
 		</div>
 	</span>
+
+	<script>
+		function pesquisar() {
+			var pesquisa = document.querySelector('#pesquisa').value;
+			var red = window.location.href = '/movie/admin/pesquisaFilme/'
+					+ pesquisa;
+
+			window.location.href = red;
+			return false;
+		}
+	</script>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

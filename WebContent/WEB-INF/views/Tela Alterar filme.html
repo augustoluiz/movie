@@ -46,10 +46,12 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
-				<form class="form-inline">
+				<form class="form-inline" onsubmit="return pesquisar()">
 					<input type="text"
-						class="form-control barraPesquisa col-12 col-md-10"
-						placeholder="Pesquisar Filmes..." />
+						class="form-control barraPesquisa col-11 col-md-11" id="pesquisa"
+						placeholder="Pesquisar Filmes..." /> <img
+						src="http://movieresources.000webhostapp.com/img/search.svg"
+						height="30" class="col-1" onclick="pesquisar()" />
 				</form>
 			</div>
 
@@ -61,13 +63,15 @@
 		</div>
 
 	</nav>
-	
-			<div th:if="${erro != null && erro != ''}" class="alert alert-danger alert-dismissible fade show"role="alert">
-			<strong th:text="${erro}">Erro</strong>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+
+	<div th:if="${erro != null && erro != ''}"
+		class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong th:text="${erro}">Erro</strong>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
 	<div class="container col-12 mt-3">
 		<form action="#" method="POST"
@@ -177,6 +181,8 @@
 									<td class="align-middle"
 										th:text="${#dates.format(p.exibicao, 'dd/MM/yyyy')}">Data
 
+
+
 									
 									</th>
 									<td class="align-middle" th:text="${p.nome_sala}">Sala
@@ -187,6 +193,8 @@
 									<td class="align-middle" th:text="${p.audio}">áudio
 									</th>
 									<td class="align-middle" th:text="${p.qualidade}">Qualidade
+
+
 
 									
 									</th>
@@ -387,6 +395,15 @@
 		$("#file-upload").change(function() {
 			readURL(this);
 		});
+
+		function pesquisar() {
+			var pesquisa = document.querySelector('#pesquisa').value;
+			var red = window.location.href = '/movie/admin/pesquisaFilme/'
+					+ pesquisa;
+
+			window.location.href = red;
+			return false;
+		}
 	</script>
 
 
