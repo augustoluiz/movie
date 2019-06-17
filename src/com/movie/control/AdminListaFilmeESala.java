@@ -96,7 +96,7 @@ public class AdminListaFilmeESala {
 		return mv;
 	}
 	
-	@RequestMapping(value="/admin/pesquisaFilme/{nome}")
+	@RequestMapping(value="/adminPesquisaFilme/{nome}")
 	public ModelAndView pesquisaFilme(@PathVariable String nome) {
 		
 		List<Filme> filmes = new ArrayList<>();

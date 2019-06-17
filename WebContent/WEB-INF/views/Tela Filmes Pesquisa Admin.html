@@ -122,14 +122,14 @@
 							class="container movie-controls col-lg-1 align-right mr-5 mt-2">
 
 							<div class="row">
-								<a th:href="${'admin/alteracaoFilme/'+ f.id}" class="col-12"><button
+								<a th:href="${'adminAlteracaoFilme/'+ f.id}" class="col-12"><button
 										type="button" class="btn col-12 controles bg-p c-p">
 										<b>Alterar</b>
 									</button></a>
 							</div>
 							<br />
 							<div class="row">
-								<a th:href="${'admin/excluirFilme/' + f.id}" class="col-12"><button
+								<a th:href="${'adminExcluirFilme/' + f.id}" class="col-12"><button
 										type="button" class="btn col-12 controles bg-p c-p"
 										data-toggle="modal">
 										<b>Excluir</b>
@@ -142,7 +142,7 @@
 				</div>
 
 				<div class="row ml-3">
-					<a href="/movie/admin/adicionarFilme"><button type="button"
+					<a href="/movie/adminAdicionarFilme"><button type="button"
 							class="btn col-1 mr-4 fixed-bottom mb-5 ml-auto bg-p c-p novo">Novo
 							Filme</button></a>
 				</div>
@@ -178,9 +178,8 @@
 			<script>
 				function pesquisar() {
 					var pesquisa = document.querySelector('#pesquisa').value;
-					var red = window.location.href = '/movie/admin/pesquisaFilme/'
+					var red = window.location.href = '/movie/adminPesquisaFilme/'
 							+ pesquisa;
-
 					window.location.href = red;
 					return false;
 				}

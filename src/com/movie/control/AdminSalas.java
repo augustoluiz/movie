@@ -16,7 +16,7 @@ public class AdminSalas {
 	private SalaDAO salaDAO = new SalaDAO();
 	private ProgramacaoDAO programacaoDAO = new ProgramacaoDAO();
 	
-	@RequestMapping(value = {"/admin/addSala"})
+	@RequestMapping(value = {"/adminAddSala"})
 	public ModelAndView addSala(
 				@ModelAttribute("sala") Sala sala) {
 		
@@ -33,7 +33,7 @@ public class AdminSalas {
 
 	}
 	
-	@RequestMapping(value = {"/admin/alteraSala/{id}"})
+	@RequestMapping(value = {"/adminAlteraSala/{id}"})
 	public ModelAndView alteraSala(
 				@ModelAttribute("sala") Sala sala) {
 		
@@ -50,7 +50,7 @@ public class AdminSalas {
 
 	}
 	
-	@RequestMapping(value = {"/admin/excluiSala/{id}"})
+	@RequestMapping(value = {"/adminExcluiSala/{id}"})
 	public ModelAndView excluiSala(
 				@ModelAttribute("sala") Sala sala) {
 		

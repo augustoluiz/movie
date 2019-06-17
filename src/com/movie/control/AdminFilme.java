@@ -32,7 +32,7 @@ public class AdminFilme {
 	private FormataData formataData = new FormataData();
 	
 	/*RequestMapping que mostra a tela de adicionar filme*/
-	@RequestMapping(value = {"/admin/adicionarFilme"})
+	@RequestMapping(value = {"/adminAdicionarFilme"})
 	public ModelAndView CadastroFilme() {
 		Filme filme = new Filme();
 		
@@ -42,7 +42,7 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que recebe os dados do form*/
-	@RequestMapping(value = {"/admin/addFilme"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/adminAddFilme"}, method=RequestMethod.POST)
 	public ModelAndView addFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) throws IOException {
 		
 		String trailer;
@@ -68,7 +68,7 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que mostra a tela de alterar filme*/
-	@RequestMapping(value="/admin/alteracaoFilme/{id}")
+	@RequestMapping(value="/adminAlteracaoFilme/{id}")
 	public ModelAndView AlteracaoFilme(@PathVariable Long id) {
 		
 		Filme filme = new Filme();
@@ -111,7 +111,7 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que altera o filme cadastrado*/
-	@RequestMapping(value = {"/admin/alteraFilme/{id}"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/adminAlteraFilme/{id}"}, method=RequestMethod.POST)
 	public ModelAndView alteraFilme(@ModelAttribute("filme") Filme filme, @RequestParam(value = "affs") MultipartFile files) {
 		
 		String trailer;
@@ -119,8 +119,6 @@ public class AdminFilme {
 		Filme temp = new Filme();
 		
 		try {
-			System.out.println(files.getBytes());
-			System.out.println("lENGTH "+files.getBytes().length);
 
 			filme.setPoster(files.getBytes());
 			if(filme.getPoster() == null || filme.getPoster().length < 1) {
@@ -144,7 +142,7 @@ public class AdminFilme {
 	}
 	
 	/*RequestMapping que exclui o registro do banco*/
-	@RequestMapping(value = {"/admin/excluirFilme/{id}"})
+	@RequestMapping(value = {"/adminExcluirFilme/{id}"})
 	public ModelAndView excluiFilme(
 				@ModelAttribute("filme") Filme filme) {
 		
@@ -165,7 +163,7 @@ public class AdminFilme {
 
 	}
 	
-	@RequestMapping(value = {"/admin/addProg"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/adminAddProg"}, method=RequestMethod.POST)
 	public ModelAndView addProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -179,11 +177,11 @@ public class AdminFilme {
 			erro = "Erro ao adicionar a Programa��o";
 		}
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
+		return new ModelAndView("redirect:/adminAlteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
 
 	}
 	
-	@RequestMapping(value = {"/admin/alteraProg/{id}"})
+	@RequestMapping(value = {"/adminAlteraProg/{id}"})
 	public ModelAndView alteraProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -198,10 +196,10 @@ public class AdminFilme {
 		}
 
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
+		return new ModelAndView("redirect:/adminAlteracaoFilme/"+programacao.getId_filme()).addObject("erro",erro);
 	}
 	
-	@RequestMapping(value = {"/admin/excluiProg/{id}"})
+	@RequestMapping(value = {"/adminExcluiProg/{id}"})
 	public ModelAndView excluiProg(
 				@ModelAttribute("programacao") Programacao programacao) {
 		
@@ -217,7 +215,7 @@ public class AdminFilme {
 			erro = "Erro ao excluir a Programa��o";
 		}
 		
-		return new ModelAndView("redirect:/admin/alteracaoFilme/"+id).addObject(erro);
+		return new ModelAndView("redirect:/adminAlteracaoFilme/"+id).addObject(erro);
 
 	}
 }

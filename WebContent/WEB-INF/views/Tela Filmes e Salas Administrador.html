@@ -55,9 +55,11 @@
 
 		</div>
 		<div class="">
-			<button type="button" class="btn bg-s c-s col-12">
+		<form action="#" th:action="@{/sair}">
+			<button type="submit" class="btn bg-s c-s col-12">
 				<b>SAIR</b>
 			</button>
+		</form>
 		</div>
 	</nav>
 	</nav>
@@ -132,14 +134,14 @@
 							class="container movie-controls col-lg-1 align-right mr-5 mt-2">
 
 							<div class="row">
-								<a th:href="${'admin/alteracaoFilme/'+ f.id}" class="col-12"><button
+								<a th:href="${'adminAlteracaoFilme/'+ f.id}" class="col-12"><button
 										type="button" class="btn col-12 controles bg-p c-p">
 										<b>Alterar</b>
 									</button></a>
 							</div>
 							<br />
 							<div class="row">
-								<a th:href="${'admin/excluirFilme/' + f.id}" class="col-12"><button
+								<a th:href="${'adminExcluirFilme/' + f.id}" class="col-12"><button
 										type="button" class="btn col-12 controles bg-p c-p"
 										data-toggle="modal">
 										<b>Excluir</b>
@@ -154,7 +156,7 @@
 				<!-- Card de um filme termina na div acima-->
 
 				<div class="row ml-3">
-					<a href="/movie/admin/adicionarFilme"><button type="button"
+					<a href="/movie/adminAdicionarFilme"><button type="button"
 							class="btn col-1 mr-4 fixed-bottom mb-5 ml-auto bg-p c-p novo">Novo
 							Filme</button></a>
 				</div>
@@ -173,7 +175,7 @@
 						</p>
 						<button class="editar btn ml-auto mr-3 mt-auto mb-auto"
 							data-toggle="modal" th:data-target="${'#sala'+ s.id }"></button>
-						<a th:href="${'admin/excluiSala/' + s.id}"><button
+						<a th:href="${'adminExcluiSala/' + s.id}"><button
 								class="fechar btn ml-auto mr-3 mt-auto mb-auto" type="submit"></button></a>
 
 					</div>
@@ -196,7 +198,7 @@
 		aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<form action="#" th:action="@{/admin/addSala}" th:object="${sala}">
+				<form action="#" th:action="@{/adminAddSala}" th:object="${sala}">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalCenterTitle">
 							<b>Adicionar uma nova sala de cinema</b>
@@ -230,7 +232,7 @@
 			tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
-					<form action="#" th:action="@{'/admin/alteraSala/' + ${sfe.id}}"
+					<form action="#" th:action="@{'/adminAlteraSala/' + ${sfe.id}}"
 						th:object="${sala}">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalCenterTitle">
@@ -260,9 +262,8 @@
 	<script>
 		function pesquisar() {
 			var pesquisa = document.querySelector('#pesquisa').value;
-			var red = window.location.href = '/movie/admin/pesquisaFilme/'
+			var red = window.location.href = '/movie/adminPesquisaFilme/'
 					+ pesquisa;
-
 			window.location.href = red;
 			return false;
 		}

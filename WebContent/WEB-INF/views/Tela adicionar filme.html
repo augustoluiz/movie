@@ -64,16 +64,18 @@
 			</div>
 
 			<div class="">
-				<button type="button" class="btn bg-s c-s col-12">
+				<form action="#" th:action="@{/sair}">
+				<button type="submit" class="btn bg-s c-s col-12">
 					<b>SAIR</b>
 				</button>
+				</form>
 			</div>
 		</div>
 
 	</nav>
 
 	<div class="container col-12 mt-3">
-		<form action="#" method="POST" th:action="@{/admin/addFilme}"
+		<form action="#" method="POST" th:action="@{/adminAddFilme}"
 			th:object="${filme}" enctype="multipart/form-data">
 
 			<div class="formfilme col-11 mx-auto mt-auto mb-5">
@@ -176,24 +178,19 @@
 					function readURL(input) {
 						if (input.files && input.files[0]) {
 							var reader = new FileReader();
-
 							reader.onload = function(e) {
 								$('#poster').attr('src', e.target.result);
 							}
-
 							reader.readAsDataURL(input.files[0]);
 						}
 					}
-
 					$("#file-upload").change(function() {
 						readURL(this);
 					});
-
 					function pesquisar() {
 						var pesquisa = document.querySelector('#pesquisa').value;
-						var red = window.location.href = '/movie/admin/pesquisaFilme/'
+						var red = window.location.href = '/movie/adminPesquisaFilme/'
 								+ pesquisa;
-
 						window.location.href = red;
 						return false;
 					}
