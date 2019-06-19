@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- FontAwesome CSS -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
+
+
+
+<!-- Custom CSS -->
+<link rel="stylesheet"
+	href="http://movieresources.000webhostapp.com/estilo.css">
+
+
+<title>Adicionar Filme</title>
+</head>
+
+<body style="background-color: rgb(218, 218, 218);">
+	<nav
+		class="d-flex flex-row navbar navbar-expand-sm navbar-dark fixed-top navBorder bg-p">
+
+		<div th:if="${erro != null && erro != ''}"
+			class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong th:text="${erro}">Erro</strong>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<a href="/movie/adminFilme" class="mr-3"><img class="logo"
+			src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
+				<form class="form-inline" onsubmit="return pesquisar()">
+					<input type="text"
+						class="form-control barraPesquisa col-11 col-md-11" id="pesquisa"
+						placeholder="Pesquisar Filmes..." /> <img
+						src="http://movieresources.000webhostapp.com/img/search.svg"
+						height="30" class="col-1" onclick="pesquisar()" />
+				</form>
+			</div>
+
+			<div class="">
+				<form action="#" th:action="@{/sair}">
+				<button type="submit" class="btn bg-s c-s col-12">
+					<b>SAIR</b>
+				</button>
+				</form>
+			</div>
+		</div>
+
+	</nav>
+
+	<div class="container col-12 mt-3">
+		<form action="#" method="POST" th:action="@{/adminAddFilme}"
+			th:object="${filme}" enctype="multipart/form-data">
+
+			<div class="formfilme col-11 mx-auto mt-auto mb-5">
+
+				<div class="row">
+					<div class="foto col-2 mt-3 text-center">
+						<img src="" id="poster" class="img-fluid imagem-addfilme" /> <input
+							type="hidden" th:field="*{id}" th:value="*{id}"> <label
+							for="file-upload" class="custom-file-upload bg-p c-p col-12">
+							<center>
+								<b>Alterar Foto</b>
+							</center>
+						</label> <input id="file-upload" name="affs" type="file" />
+
+					</div>
+					<div class="campos-filme form col-10 mt-3">
+						<div class="form-row col-12 mb-3">
+							<b>Nome </b> <input type="text" name="nome" th:field="*{nome}"
+								class="ml-2 form-control col">
+						</div>
+
+						<div class="form-row col-12 container-fluid mb-3">
+							<b>Duração </b> <input type="time" data-date=""
+								data-data-format="HH:mm" name="duracao" th:field="*{duracao}"
+								class="ml-2 form-control col"> <b>Gênero </b> <input
+								type="text" name="genero" th:field="*{genero}"
+								class="ml-2 form-control col mr-3"> <b>Classificação
+								indicativa </b> <select class="form-control ml-2 col"
+								name="indicativa" th:field="*{classifIndicativa}"
+								id="exampleFormControlSelect1">
+								<option th:value="${'Livre'}">Livre</option>
+								<option th:value="${'10'}">10</option>
+								<option th:value="${'12'}">12</option>
+								<option th:value="${'16'}">16</option>
+								<option th:value="${'18'}">18</option>
+							</select>
+							<!--<input type="text" name="nome" class="ml-2 form-control col" >-->
+						</div>
+
+						<div class="form-row form-inline col-12 mb-3">
+							<div class="col-6">
+								<b>Sinopse</b>
+								<textarea class="form-control" rows="10" name="sinopse"
+									th:field="*{sinopse}" style="min-width: 100%"></textarea>
+							</div>
+
+							<div class="col-6">
+								<div class="form-row col-12 mt-2">
+									<b>Elenco </b> <input type="text" name="elenco"
+										th:field="*{elenco}" class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Diretor </b> <input type="text" name="diretor"
+										th:field="*{diretor}" class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Data de Estreia </b> <input type="date" data-date=""
+										name="data" th:field="*{estreia}"
+										class="ml-2 form-control col">
+								</div>
+
+								<div class="form-row col-12 mt-2">
+									<b>Distribuidora </b> <input type="text" name="distribuidora"
+										th:field="*{distribuidora}" class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Trailer </b> <input type="text" name="trailer"
+										th:field="*{trailer}" class="ml-2 form-control col">
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<button type="submit"
+						class="btn col-2 ml-auto mr-4 mb-3 controles bg-p c-p">
+						<b>Salvar Filme</b>
+					</button>
+				</div>
+
+				<!-- Optional JavaScript -->
+				<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+					integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+					crossorigin="anonymous"></script>
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+					integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+					crossorigin="anonymous"></script>
+				<script
+					src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+					integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+					crossorigin="anonymous"></script>
+
+
+
+				<script>
+					function readURL(input) {
+						if (input.files && input.files[0]) {
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$('#poster').attr('src', e.target.result);
+							}
+							reader.readAsDataURL(input.files[0]);
+						}
+					}
+					$("#file-upload").change(function() {
+						readURL(this);
+					});
+					function pesquisar() {
+						var pesquisa = document.querySelector('#pesquisa').value;
+						var red = window.location.href = '/movie/adminPesquisaFilme/'
+								+ pesquisa;
+						window.location.href = red;
+						return false;
+					}
+				</script>
+</body>
+
+</html>

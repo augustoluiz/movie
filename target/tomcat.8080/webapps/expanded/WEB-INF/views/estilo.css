@@ -1,0 +1,217 @@
+.navBorder
+{
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+.barraPesquisa
+{
+	border-radius:50px;
+	background-image: url("pesq.png");
+	background-repeat:no-repeat;
+	background-position:98%;
+}
+.bodycenter
+{
+    display: flex;
+    align-items: center;
+}
+.logo{
+    height: 40px;
+}
+body
+{
+    background-color: rgb(218, 218, 218);
+    padding-top: 65px;	
+}
+.login
+{
+    width:100%;
+    padding:15px;
+    margin: auto;
+    max-width: 600px;
+    background-color:white;
+    
+    -webkit-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    -moz-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+}
+form
+{
+    display: block;
+}
+html,body
+{
+    height: 100%
+}
+.LogoLogin
+{
+    width: 90%;
+}
+.login-input
+{
+    background-color: rgb(230,230,230);
+    border-style: solid;
+    border-color: lightgrey;
+}
+.btn-entrar
+{
+    background-color: #02968A;
+    color:white;
+    font-weight:900;
+    font-size: 32px;
+    font-size-adjust: auto;
+}
+.tabs
+{
+    background-color: blue;
+}
+.moviecard
+{
+    background-color:white;
+    margin-top:15px;
+    -webkit-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    -moz-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    margin-bottom: 50px;
+    overflow: hidden;
+
+
+}
+.movie-desc
+{
+    height:125px;
+    background-color:white;
+    margin-left:0;
+    margin-right: 0;
+}
+
+.movie-controls
+{
+    height: 125px;
+    background-color:white;
+    padding-top: 14px;
+}
+
+.cortar{
+    object-fit:contain;
+    height: 100px;
+    
+}
+.poster{
+    min-width: 50px;
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+
+}
+.controles{
+    min-width: 120px;
+    font-size: 22px;
+    height: 40px;
+    line-height: 22px;
+}
+
+.salas{
+    background-color: white;
+    height:60px;
+    font-size: 32px;
+    -webkit-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    -moz-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    margin-bottom: 25px;
+}
+.fechar{
+    background-image: url(excluir.png);
+    height:45px;
+    width: 50px;
+    margin-top: 2px;
+}
+
+.bg-p{
+    background-color: #02968A;
+}
+.c-p{
+    color: white;
+}
+.bg-s{
+    background-color: white;
+}
+.c-s{
+    color: #02968A;
+}
+.novo{
+    height: auto;
+    font-size: 22px;
+}
+
+.ico-desc{
+    height: 35px;
+}
+
+.formfilme{
+    background-color: white;
+    -webkit-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    -moz-box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+    box-shadow: 5px 5px 3px 2px rgba(0,0,0,0.21);
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.campos-filme{
+    font-size: 20px;
+
+}
+input[type=radio] {
+    width: 30px;
+    height: 30px;
+}
+
+.imagem-addfilme{
+    max-height: 350px;
+
+}
+
+.prog-sala{
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: black;
+}
+
+.prog-horario{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    width: auto;
+
+}
+
+.prog-font{
+    font-size: 25px;
+}
+
+.nav-link{
+    font-size: 20px;
+    color:gray;
+    margin-right: 5px;
+    background-color:#ebebeb !important;
+    color: #02968A;
+}
+
+.nav-link.active{
+    color:white !important;
+    background-color: #02968A !important;
+    -webkit-box-shadow: 5px -5px 2px 1px rgba(0,0,0,0.21) !important;
+    -moz-box-shadow: 5px -5px 2px 1px rgba(0,0,0,0.21) !important;
+    box-shadow: 2px -2px 2px 1px rgba(0,0,0,0.21) !important;
+}
+.filmedesc{
+    font-size: 15px;
+}

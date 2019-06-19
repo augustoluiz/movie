@@ -1,1 +1,2 @@
-web: java -cp target/classes/:target/dependency/* com.movie.config.WebInitializer
+web: java -jar target/dependency/webapp-runner.jar target/movie-0.0.1-SNAPSHOT.war
+

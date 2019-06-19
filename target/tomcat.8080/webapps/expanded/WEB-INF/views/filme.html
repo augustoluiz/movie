@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<th>Nome</th>
+			<th>Sinopse</th>
+			<th>Dura��o</th>
+			<th>G�nero</th>
+			<th>Elenco</th>
+			<th>Diretor</th>
+			<th>Estreia</th>
+			<th>Trailer</th>
+			<th>poster</th>
+			<th>Classif. Indicativa</th>
+			<th>Distribuidora</th>
+			<th>A��o</th>
+		</thead>
+		<tbody>
+			<tr th:if="${erro != null}">
+				<td colspan="11"><span th:text="${erro}"></span></td>
+			</tr>
+			<tr th:if="${filmes.empty}">
+				<td colspan="11">N�o h� filmes cadastrados</td>
+			</tr>
+			<tr th:each="f : ${filmes}">
+				<td><span th:text="${f.nome}"> nome </span></td>
+				<td><span th:text="${f.sinopse}"> sinopse </span></td>
+				<td><span th:text="${#dates.format(f.duracao, 'HH:mm')}"> duracao </span></td>
+				<td><span th:text="${f.genero}"> genero </span></td>
+				<td><span th:text="${f.elenco}"> elenco </span></td>
+				<td><span th:text="${f.diretor}"> diretor </span></td>
+				<td><span th:text="${#dates.format(f.estreia, 'dd/MM/yyyy')}"> estreia </span></td>
+				<td><span th:text="${f.trailer}"> trailer </span></td>
+				<td><span th:text="${f.getPosterBase64()}"> poster </span></td>
+				<td><span th:text="${f.classifIndicativa}"> classif.ind </span></td>
+				<td><span th:text="${f.distribuidora}"> distribuidora </span></td>
+				<td>
+					<a th:href="@{'/filme/' + ${f.id}}">
+        			<span>Delete</span>
+    				</a>
+					<form action="#" th.action="@{'/filme/' + ${f.id}}" method="POST">
+					<button type="submit" name="info">info</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+</body>
+</html>
