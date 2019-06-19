@@ -1,0 +1,414 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- FontAwesome CSS -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
+
+
+
+<!-- Custom CSS -->
+<link rel="stylesheet"
+	href="http://movieresources.000webhostapp.com/estilo.css">
+
+
+<title>Hello, world!</title>
+</head>
+
+<body style="background-color: rgb(218, 218, 218);">
+	<nav
+		class="d-flex flex-row navbar navbar-expand-sm navbar-dark fixed-top navBorder bg-p">
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<a href="/movie/adminFilme" class="mr-3"><img class="logo"
+			src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
+
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
+				<form class="form-inline" onsubmit="return pesquisar()">
+					<input type="text"
+						class="form-control barraPesquisa col-11 col-md-11" id="pesquisa"
+						placeholder="Pesquisar Filmes..." /> <img
+						src="http://movieresources.000webhostapp.com/img/search.svg"
+						height="30" class="col-1" onclick="pesquisar()" />
+				</form>
+			</div>
+
+			<div class="">
+			<form action="#" th:action="@{/sair}">
+				<button type="submit" class="btn bg-s c-s col-12">
+					<b>SAIR</b>
+				</button>
+			</form>
+			</div>
+		</div>
+
+	</nav>
+
+	<div th:if="${erro != null && erro != ''}"
+		class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong th:text="${erro}">Erro</strong>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="container col-12 mt-3">
+		<form action="#" method="POST"
+			th:action="@{'/adminAlteraFilme/' + ${filme.id}}"
+			th:object="${filme}" enctype="multipart/form-data">
+
+			<div class="formfilme col-11 mx-auto mt-auto mb-5">
+
+				<div class="row">
+					<div class="foto col-2 mt-3 text-center">
+						<img
+							th:src="${'data:image/png;base64,' + filme.getPosterBase64()}"
+							id="poster" class="img-fluid imagem-addfilme" /> <input
+							type="hidden" th:field="*{id}" th:value="*{id}"> <label
+							for="file-upload" class="custom-file-upload bg-p c-p col-12">
+							<center>
+								<b>Alterar Foto</b>
+							</center>
+						</label> <input id="file-upload" name="affs" th:value="*{poster}"
+							type="file" />
+
+					</div>
+					<div class="campos-filme form col-10 mt-3">
+						<div class="form-row col-12 mb-3">
+							<b>Nome </b> <input type="text" name="nome" th:value="*{nome}"
+								th:field="*{nome}" class="ml-2 form-control col">
+						</div>
+
+						<div class="form-row col-12 container-fluid mb-3">
+							<b>Duração </b> <input type="time" data-date=""
+								data-data-format="HH:mm" name="duracao" th:value="*{duracao}"
+								th:field="*{duracao}" class="ml-2 form-control col"> <b>Gênero
+							</b> <input type="text" name="genero" th:value="*{genero}"
+								th:field="*{genero}" class="ml-2 form-control col mr-3">
+							<b>Classificação indicativa </b> <select
+								class="form-control ml-2 col" name="indicativa"
+								th:value="*{classifIndicativa}" th:field="*{classifIndicativa}"
+								id="exampleFormControlSelect1">
+								<option th:value="${'Livre'}">Livre</option>
+								<option th:value="${'10'}">10</option>
+								<option th:value="${'12'}">12</option>
+								<option th:value="${'16'}">16</option>
+								<option th:value="${'18'}">18</option>
+							</select>
+							<!--<input type="text" name="nome" class="ml-2 form-control col" >-->
+						</div>
+
+						<div class="form-row form-inline col-12 mb-3">
+							<div class="col-6">
+								<b>Sinopse</b>
+								<textarea class="form-control" rows="10" name="sinopse"
+									th:value="*{sinopse}" th:field="*{sinopse}"
+									style="min-width: 100%"></textarea>
+							</div>
+
+							<div class="col-6">
+								<div class="form-row col-12 mt-2">
+									<b>Elenco </b> <input type="text" name="elenco"
+										th:value="*{elenco}" th:field="*{elenco}"
+										class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Diretor </b> <input type="text" name="diretor"
+										th:value="*{diretor}" th:field="*{diretor}"
+										class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Data de Estreia </b> <input type="date" data-date=""
+										name="data" th:value="*{estreia}" th:field="*{estreia}"
+										class="ml-2 form-control col">
+								</div>
+
+								<div class="form-row col-12 mt-2">
+									<b>Distribuidora </b> <input type="text" name="distribuidora"
+										th:value="*{distribuidora}" th:field="*{distribuidora}"
+										class="ml-2 form-control col">
+								</div>
+								<div class="form-row col-12 mt-2">
+									<b>Trailer </b> <input type="text" name="trailer"
+										th:value="*{trailer}" th:field="*{trailer}"
+										class="ml-2 form-control col">
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row mr-2 ml-2">
+					<h1 class="c-s">Programação</h1>
+
+					<table class="table table-striped ">
+						<thead class="thead-dark">
+							<tr>
+								<th>Data</th>
+								<th>Sala</th>
+								<th>Horário</th>
+								<th>áudio</th>
+								<th>Qualidade</th>
+								<th>Valor</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<span th:if="!${#lists.isEmpty(programacoes)}">
+								<tr th:each="p : ${programacoes}">
+									<td class="align-middle"
+										th:text="${#dates.format(p.exibicao, 'dd/MM/yyyy')}">Data
+
+
+
+									
+									</th>
+									<td class="align-middle" th:text="${p.nome_sala}">Sala
+									</th>
+									<td class="align-middle"
+										th:text="${#dates.format(p.exibicao, 'HH:mm')}">Horário
+									</th>
+									<td class="align-middle" th:text="${p.audio}">áudio
+									</th>
+									<td class="align-middle" th:text="${p.qualidade}">Qualidade
+
+
+
+									
+									</th>
+									<td class="align-middle"
+										th:text="${#numbers.formatCurrency(p.preco)}">Valor
+									</th>
+									<td>
+										<button type="button" data-toggle="modal"
+											th:data-target="${'#prog' + p.id}" class="editar btn"></button>
+										<a th:href="@{'/adminExcluiProg/' + ${p.id}}"><button
+												type="button" class="fechar btn"></button></a>
+									</td>
+
+									<!-- <td><input class="form-check-input mt-auto mb-auto" type="radio" name="id" th:id="${p.id}" th:value="${p.id}"></td>  -->
+								</tr>
+							</span>
+						</tbody>
+					</table>
+
+
+					<div class="col-12 text-right">
+						<!-- <button type="button" class="btn col-1 mb-3 controles bg-p c-p">
+							<b>Excluir</b>
+						</button>
+						<button type="button" class="btn col-1 mb-3 controles bg-p c-p">
+							<b>Editar</b>
+						</button> -->
+						<button type="button" data-toggle="modal"
+							data-target="#modalFilme"
+							class="btn col-2 mb-3 controles bg-p c-p">
+							<b>Adicionar</b>
+						</button>
+					</div>
+				</div>
+				<hr></hr>
+				<div class="row">
+					<button type="submit"
+						class="btn col-2 ml-auto mr-4 mb-3 controles bg-p c-p">
+						<b>Salvar Filme</b>
+					</button>
+				</div>
+		</form>
+
+	</div>
+	</div>
+
+	<!-- Modal Adicionar Programação-->
+	<div class="modal fade" id="modalFilme" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-xl"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">
+						<b class="c-s">Adicionar Programação</b>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body col-12 px-5 pt-4">
+					<p class="col mt-auto mb-auto">
+					<form action="#" th:action="@{/adminAddProg}" th:object="${prog}"
+						method="POST">
+						<input type="hidden" th:field="*{id_filme}" th:value="*{id_filme}">
+						<div class="row">
+							<b>Data</b> <input type="date" data-date=""
+								data-data-format="DD MMMM YYYY" name="data_exibicao"
+								th:field="*{data_exibicao}" class="ml-2 form-control col">
+							<b>Horario</b> <input type="time" data-date=""
+								data-data-format="HH:mm" name="hora_exibicao"
+								th:field="*{hora_exibicao}" class="ml-2 form-control col">
+							<b>Sala</b> <select class="form-control ml-2 col" name="id_sala"
+								th:field="*{id_sala}">
+								<option th:each="s : ${salas}" th:text="${s.nome}"
+									th:value="${s.id}">Livre</option>
+							</select>
+						</div>
+						<br />
+						<div class="row">
+							<b>Preço </b> <input type="text" name="preco" th:field="*{preco}"
+								class="ml-2 form-control col"> <b>Audio</b> <select
+								class="form-control ml-2 col" th:field="*{audio}" name="audio">
+								<option th:value="${'DUB'}">Dublado</option>
+								<option th:value="${'LEG'}">Legendado</option>
+							</select> <b>Qualidade</b> <select class="form-control ml-2 col"
+								name="qualidade" th:field="*{qualidade}">
+								<option th:value="${'2D'}">2D</option>
+								<option th:value="${'3D'}">3D</option>
+							</select>
+						</div>
+						</p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary bg-p c-p">Adicionar
+						Programação</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Alterar Programação-->
+	<span th:each="pfe : ${programacoes}" th:remove="tag">
+		<div class="modal fade" id="modalFilme" th:id="${'prog' + pfe.id}"
+			tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-xl"
+				role="document">
+				<div class="modal-content">
+					<form action="#" th:action="@{'/adminAlteraProg/' + ${pfe.id}}"
+						th:object="${prog}">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">
+								<b class="c-s">Adicionar Programação</b>
+							</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body col-12 px-5 pt-4">
+							<p class="col mt-auto mb-auto">
+								<input type="hidden" th:field="*{id_filme}"
+									th:value="*{id_filme}">
+							<div class="row">
+								<b>Data</b> <input type="date" data-date=""
+									data-data-format="DD MMMM YYYY" name="data_exibicao"
+									th:field="*{data_exibicao}" class="ml-2 form-control col">
+								<b>Horario</b> <input type="time" data-date=""
+									data-data-format="HH:mm" name="hora_exibicao"
+									th:field="*{hora_exibicao}" class="ml-2 form-control col">
+								<b>Sala</b> <select class="form-control ml-2 col" name="id_sala"
+									th:field="*{id_sala}">
+									<option th:each="s : ${salas}" th:text="${s.nome}"
+										th:value="${s.id}">Livre</option>
+								</select>
+							</div>
+							<br />
+							<div class="row">
+								<b>Preço </b> <input type="text" name="preco"
+									th:field="*{preco}" class="ml-2 form-control col"> <b>Audio</b>
+								<select class="form-control ml-2 col" th:field="*{audio}"
+									name="audio">
+									<option th:value="${'DUB'}">Dublado</option>
+									<option th:value="${'LEG'}">Legendado</option>
+								</select> <b>Qualidade</b> <select class="form-control ml-2 col"
+									name="qualidade" th:field="*{qualidade}">
+									<option th:value="${'2D'}">2D</option>
+									<option th:value="${'3D'}">3D</option>
+								</select>
+							</div>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary bg-p c-p">Alterar
+								Programação</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</span>
+
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+
+
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#poster').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#file-upload").change(function() {
+			readURL(this);
+		});
+		function pesquisar() {
+			var pesquisa = document.querySelector('#pesquisa').value;
+			var red = window.location.href = '/movie/adminPesquisaFilme/'
+					+ pesquisa;
+			window.location.href = red;
+			return false;
+		}
+	</script>
+
+
+
+
+
+
+
+</body>
+
+</html>

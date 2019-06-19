@@ -1,0 +1,199 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- FontAwesome CSS -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
+
+
+
+<!-- Custom CSS -->
+<link rel="stylesheet"
+	href="http://movieresources.000webhostapp.com/estilo.css">
+
+
+<title>Filmes</title>
+</head>
+
+<body style="background-color: rgb(218, 218, 218);">
+	<nav
+		class="d-flex flex-row navbar navbar-expand-sm navbar-dark fixed-top navBorder bg-p">
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<a href="/movie/" class="mr-3"><img class="logo"
+			src="http://movieresources.000webhostapp.com/img/logo2.png"></a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="col-md-8 col-lg-6 mr-auto mb-2 mb-sm-0">
+				<form class="form-inline" onsubmit="return pesquisar()">
+					<input type="text"
+						class="form-control barraPesquisa col-11 col-md-11" id="pesquisa"
+						placeholder="Pesquisar Filmes..." /> <img
+						src="http://movieresources.000webhostapp.com/img/search.svg"
+						height="30" class="col-1" onclick="pesquisar()" />
+				</form>
+			</div>
+
+		</div>
+
+	</nav>
+
+	<div th:if="${erro != null && erro != ''}"
+		class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong th:text="${erro}">Erro</strong>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<div class="container col-12 mt-3">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item"><a class="nav-link active" id="cartaz-tab"
+				data-toggle="tab" href="#pesquisa">Filmes Pesquisa</a></li>
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+
+
+			<div class="tab-pane fade show active" id="pesquisa">
+
+				<!-- Card de um filme começa aqui-->
+
+				<div class="container-fluid" th:each="f : ${filmes} ">
+
+					<div class="row no-margins moviecard">
+						<div class="pl-0 mr-3">
+							<img th:src="${'data:image/png;base64,' + f.getPosterBase64()}"
+								src="https://img.elo7.com.br/product/zoom/23646C7/big-poster-filme-capita-marvel-tamanho-90x60-cm-presente-geek.jpg"
+								class="img-fluid poster" />
+						</div>
+						<div class="container movie-desc col">
+							<div class="row">
+								<H1 class="mt-auto mb-auto" th:text="${f.nome}">Nome do
+									Filme</H1>
+								<p class="text-right mt-3 ml-2">
+									<span
+										th:text="${#dates.format(f.estreia, 'dd/MM/yyyy') + ' - ' + f.genero + ' ' + #dates.format(f.duracao, 'HH:mm')}"
+										th:remove="tag"> Data Estreia - Genero Duração </span> <img
+										src="img/18.png"
+										th:src="${'http://movieresources.000webhostapp.com/img/' + f.classifIndicativa + '.png'}"
+										class="ico-desc" />
+
+									<!-- Fazer Verificação dos tipos de audio-->
+									<span th:each="a : ${f.audio}" th:remove="tag"> <img
+										th:src="${'http://movieresources.000webhostapp.com/img/' + a + '.png'}"
+										class="ico-desc" />
+									</span>
+
+									<!-- Fazer Verificação dos tipo de "qualidade" -->
+									<span th:each="q : ${f.qualidade}" th:remove="tag"> <img
+										th:src="${'http://movieresources.000webhostapp.com/img/' + q + '.png'}"
+										class="ico-desc" />
+									</span>
+
+								</p>
+							</div>
+							<div class="row texto" th:text="${f.sinopse}">descrição do
+								filme</div>
+
+						</div>
+						<div
+							class="container movie-controls col-lg-1 align-right mr-5 mt-2">
+
+							<div class="row">
+								<a th:href="${'filme/'+ f.id}" class="col-12"><button
+										type="button" class="btn col-12 controles bg-p c-p">
+										<b>Ver Mais</b>
+									</button></a>
+							</div>
+							<br />
+							<div class="row">
+								<a class="col-12"><button type="button"
+										class="btn col-12 controles bg-p c-p" data-toggle="modal"
+										th:data-target="${'#id' + f.id}">
+										<b>Trailer</b>
+									</button></a>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Card de um filme termina na div acima-->
+
+			</div>
+
+			<span th:each="c : ${filmes}">
+				<div class="modal fade" th:id="${'id' + c.id}"
+					id="ExemploModalCentralizado" tabindex="-1" role="dialog"
+					aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+					<div class="modal-dialog modal-xl modal-dialog-centered"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Fechar">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div class="col-12 mt-3 embed-responsive embed-responsive-16by9">
+									<iframe width="560" height="315" th:src="${c.trailer}"
+										src="https://www.youtube.com/embed/3VUblDwa648"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										class="embed-responsive-item" allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</span>
+
+
+			<script>
+				function pesquisar() {
+					var pesquisa = document.querySelector('#pesquisa').value;
+					var red = window.location.href = '/movie/pesquisaFilme/'
+							+ pesquisa;
+					window.location.href = red;
+					return false;
+				}
+			</script>
+
+			<!-- Optional JavaScript -->
+			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+				integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+				crossorigin="anonymous"></script>
+</body>
+
+</html>
